@@ -5,20 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Curso de Apuestas con IA</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Temporizador de cuenta regresiva (4h)
+    document.addEventListener("DOMContentLoaded", function() {
+      const countDownDate = new Date().getTime() + 4 * 60 * 60 * 1000;
+      const timer = document.getElementById("countdown");
+      const interval = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        timer.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+        if (distance < 0) {
+          clearInterval(interval);
+          timer.innerHTML = "¡Oferta finalizada!";
+        }
+      }, 1000);
+    });
+  </script>
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1608032072780-6c1a87a5e095');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
 </head>
-<body class="bg-black text-white font-sans">
+<body class="bg-black bg-opacity-80 text-white font-sans">
+  <!-- Temporizador -->
+  <div class="w-full bg-red-600 text-white text-center py-2 font-bold text-lg">
+    ⚠️ ¡OFERTA FINALIZA EN <span id="countdown">4h 00m 00s</span>!
+  </div>
+
   <!-- Hero -->
-  <section class="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-gradient-to-b from-black via-zinc-900 to-black">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-red-500 mb-4">Ganá con IA y Apuestas Deportivas 💰</h1>
-    <p class="text-xl md:text-2xl text-gray-200 mb-2">Una jugada y recuperás el curso</p>
-    <p class="text-lg text-yellow-400 mb-4">Curso completo: $5000</p>
-    <a href="https://wa.me/XXXXXXXXXXX" target="_blank" class="bg-red-600 hover:bg-red-700 text-white text-lg font-bold py-3 px-6 rounded-xl transition-all">
-      Escribime y empezá hoy 🚀
+  <section class="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-black bg-opacity-80">
+    <h1 class="text-5xl font-extrabold text-yellow-400 mb-4">Ganá con IA y Apuestas Deportivas 💰</h1>
+    <p class="text-2xl text-white mb-2">Una jugada y recuperás el curso</p>
+    <p class="text-3xl font-bold text-green-400 mb-6">🔥 $5000 ARS por tiempo limitado 🔥</p>
+    <a href="https://wa.me/XXXXXXXXXXX" target="_blank" class="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-black font-bold text-lg py-4 px-8 rounded-full shadow-lg">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-6 h-6"> WhatsApp: Empezá ya 🚀
     </a>
   </section>
 
   <!-- Beneficios -->
-  <section class="py-12 px-6 bg-zinc-900 text-center">
+  <section class="py-12 px-6 bg-black bg-opacity-90 text-center">
     <h2 class="text-3xl font-bold text-white mb-6">¿Por qué este curso?</h2>
     <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
       <div class="bg-zinc-800 p-6 rounded-xl border border-zinc-700">
@@ -36,13 +67,30 @@
     </div>
   </section>
 
-  <!-- Urgencia -->
-  <section class="bg-red-900 text-white py-10 text-center">
-    <p class="text-xl font-bold">⚠️ Cupos limitados - Solo por $5000 esta semana</p>
+  <!-- Testimonios -->
+  <section class="py-12 px-6 bg-zinc-950 text-center">
+    <h2 class="text-3xl font-bold text-white mb-6">Historias reales de ganadores 💸</h2>
+    <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div class="bg-zinc-800 p-6 rounded-xl text-left">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-16 h-16 rounded-full mb-3" alt="Testimonio">
+        <p class="text-green-400 font-bold">"Recuperé el curso en el primer día. ¡Gracias IA!"</p>
+        <p class="text-gray-400 text-sm mt-1">– Lucas, Córdoba</p>
+      </div>
+      <div class="bg-zinc-800 p-6 rounded-xl text-left">
+        <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-16 h-16 rounded-full mb-3" alt="Testimonio">
+        <p class="text-green-400 font-bold">"Nunca aposté antes y ahora gano desde mi celu."</p>
+        <p class="text-gray-400 text-sm mt-1">– Sofía, Rosario</p>
+      </div>
+      <div class="bg-zinc-800 p-6 rounded-xl text-left">
+        <img src="https://randomuser.me/api/portraits/men/85.jpg" class="w-16 h-16 rounded-full mb-3" alt="Testimonio">
+        <p class="text-green-400 font-bold">"La IA me ayudó a entender todo y a ganar bien."</p>
+        <p class="text-gray-400 text-sm mt-1">– Martín, Buenos Aires</p>
+      </div>
+    </div>
   </section>
 
   <!-- Qué incluye -->
-  <section class="py-12 px-6 bg-zinc-950 text-center">
+  <section class="py-12 px-6 bg-black bg-opacity-80 text-center">
     <h2 class="text-3xl font-bold text-white mb-6">¿Qué vas a aprender?</h2>
     <ul class="text-gray-300 space-y-3 max-w-xl mx-auto">
       <li>✅ Cómo funcionan las apuestas deportivas y los mercados</li>
@@ -54,11 +102,13 @@
 
   <!-- CTA Final -->
   <section class="bg-black py-16 text-center">
-    <h2 class="text-3xl font-bold text-red-500 mb-4">¿Listo para ganar?</h2>
-    <a href="https://wa.me/XXXXXXXXXXX" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-lg py-3 px-6 rounded-xl">
-      Hablame por WhatsApp y arrancá hoy mismo 🚀
+    <h2 class="text-3xl font-bold text-red-500 mb-4">¡No te lo pierdas!</h2>
+    <a href="https://wa.me/XXXXXXXXXXX" target="_blank" class="flex items-center justify-center gap-3 mx-auto bg-green-500 hover:bg-green-600 text-black font-bold text-xl py-4 px-10 rounded-full shadow-lg">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-6 h-6"> WhatsApp: Empezá ahora 🚀
     </a>
+    <p class="mt-4 text-yellow-400 font-bold text-lg">🔥 Solo $5000 hasta que termine el contador 🔥</p>
   </section>
 </body>
 </html>
+
 
