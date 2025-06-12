@@ -5,6 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Curso de Apuestas con IA</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Facebook Pixel actualizado -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1810655546237000');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1810655546237000&ev=PageView&noscript=1"/></noscript>
+
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const countDownDate = new Date().getTime() + 4 * 60 * 60 * 1000;
@@ -21,6 +38,20 @@
           timer.innerHTML = "¡Oferta finalizada!";
         }
       }, 1000);
+
+      // WhatsApp button logic con número ofuscado y mensaje predefinido
+      const enlace = document.querySelector("a[href^='https://wa.me']");
+      if (enlace) {
+        enlace.addEventListener("click", function(event) {
+          event.preventDefault();
+          fbq('track', 'Subscribe', {
+            content_name: 'WhatsApp Curso Apuestas'
+          });
+          const w = "549" + "261" + "608" + "7250"; // nuevo número
+          const msg = encodeURIComponent("Hola, me interesa el Curso de Apuestas Deportivas + Inteligencia Artificial");
+          window.open("https://wa.me/" + w + "?text=" + msg, '_blank');
+        });
+      }
     });
   </script>
   <style>
