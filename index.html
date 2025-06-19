@@ -2,34 +2,39 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Conectando con soporte...</title>
+  <title>Reclamá tu BONO</title>
   <meta name="robots" content="noindex, nofollow">
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Número y mensaje codificados en Base64
-      const numeroCodificado = "NTQyNjE2MDg3MjIz"; // 542616087223
-      const mensajeCodificado = "SG9sYSwgdmVubm8gZGUgbGEgcHVibGljaWRhZA=="; // Hola, vengo de la publicidad
+      setTimeout(function () {
+        const numeroCodificado = "NTQyNjE2MDg3MjIz"; // 542616087223
+        const mensajeCodificado = "SG9sYSwgdmVubm8gZGUgbGEgcHVibGljaWRhZA=="; // Hola, vengo de la publicidad
 
-      // Decodifica y arma el enlace
-      const numero = atob(numeroCodificado);
-      const mensaje = atob(mensajeCodificado);
-      const enlace = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-
-      // Redirige
-      window.location.href = enlace;
+        const numero = atob(numeroCodificado);
+        const mensaje = atob(mensajeCodificado);
+        const enlace = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+        window.location.href = enlace;
+      }, 2000); // 2 segundos
     });
   </script>
   <style>
     body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f9f9f9;
       font-family: sans-serif;
+      color: #111;
       text-align: center;
-      margin-top: 30%;
-      color: #333;
+    }
+    h1 {
+      font-size: 1.8rem;
+      padding: 20px;
     }
   </style>
 </head>
 <body>
-  <p>🔄 Conectando con soporte vía WhatsApp...</p>
+  <h1>🎁 ¡Reclamá tu <strong>BONO del 20%</strong> ahora!<br>Conectando con WhatsApp...</h1>
 </body>
 </html>
-
