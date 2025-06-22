@@ -1,40 +1,97 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Reclamá tu BONO</title>
-  <meta name="robots" content="noindex, nofollow">
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      setTimeout(function () {
-        const numeroCodificado = "NTQyNjE2MDg3MjIz"; // 542616087223
-        const mensajeCodificado = "SG9sYSwgdmVubm8gZGUgbGEgcHVibGljaWRhZA=="; // Hola, vengo de la publicidad
-
-        const numero = atob(numeroCodificado);
-        const mensaje = atob(mensajeCodificado);
-        const enlace = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-        window.location.href = enlace;
-      }, 2000); // 2 segundos
-    });
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minijuegos</title>
   <style>
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background: #f9f9f9;
-      font-family: sans-serif;
-      color: #111;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      background: url('./fondo.png') no-repeat center center fixed;
+      background-size: cover;
       text-align: center;
     }
-    h1 {
-      font-size: 1.8rem;
-      padding: 20px;
+
+    .container {
+      padding: 30px 20px;
+      background-color: rgba(0, 0, 0, 0.65);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .logo {
+      width: 100px;
+      margin: 0 auto 25px;
+    }
+
+    .texto-principal {
+      font-size: 1.25rem;
+      margin-bottom: 25px;
+    }
+
+    .texto-principal strong {
+      color: #00ff88;
+      text-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88, 0 0 20px #00ff88;
+    }
+
+    .whatsapp-btn {
+      display: inline-block;
+      background-color: #25d366;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 14px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-bottom: 30px;
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 10px #25d366, 0 0 20px #25d366, 0 0 30px #25d366;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    .info {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .juegos {
+      font-size: 1rem;
+      color: #ff4fa3;
+      font-weight: bold;
+      text-shadow: 0 0 5px #ff4fa3;
+    }
+
+    .extras {
+      font-size: 0.85rem;
+      color: #ccc;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
-  <h1>🎁 ¡Reclamá tu <strong>BONO del 20%</strong> ahora!<br>Conectando con WhatsApp...</h1>
+  <div class="container">
+    <img src="./logo.png" alt="Logo" class="logo" />
+    <p class="texto-principal">
+      Presioná el <strong>botón verde</strong> "WhatsApp" para crearte un usuario.
+    </p>
+    <a class="whatsapp-btn" href="https://wa.me/549XXXXXXXXXX" target="_blank">💬 WhatsApp</a>
+    <p class="info">Carga mínima: $1000</p>
+    <p class="info juegos">
+      Todos los minijuegos: La torre, Crocodino, Hamburguesa y Más.
+    </p>
+    <p class="extras">
+      Blackjack – Ruleta en Vivo – Deportivas – Maquinitas – Minijuegos
+    </p>
+  </div>
 </body>
 </html>
