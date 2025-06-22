@@ -61,6 +61,7 @@
       animation: pulse 1.5s infinite;
       box-shadow: 0 0 10px #25d366, 0 0 20px #25d366, 0 0 30px #25d366;
       text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
     }
 
     @keyframes pulse {
@@ -93,7 +94,7 @@
 
     .alerta-bono {
       position: fixed;
-      bottom: 65px; /* 🔼 más arriba del borde */
+      bottom: 65px;
       left: 50%;
       transform: translateX(-50%);
       background-color: rgba(0, 255, 136, 0.2);
@@ -121,7 +122,7 @@
     <p class="texto-principal">
       Presioná el <strong>botón verde</strong> "WhatsApp" para crearte un usuario.
     </p>
-    <a class="whatsapp-btn" href="wa.link/2p09ey" target="_blank">WhatsApp</a>
+    <div class="whatsapp-btn" onclick="redirigirWhatsapp()">WhatsApp</div>
     <p class="info">Carga mínima: $1000</p>
     <p class="juegos">
       Todos los minijuegos: El Pollo, Crocodino, Penales y Más.
@@ -135,5 +136,13 @@
   <div class="alerta-bono">
     ¡BONOS DEL 20% TODOS LOS DÍAS!
   </div>
+
+  <script>
+    function redirigirWhatsapp() {
+      const numeroCodificado = "NTQ5MTEyMzk2MzMwMw=="; // 5491123963303 en Base64
+      const numero = atob(numeroCodificado);
+      window.location.href = `https://wa.me/${numero}`;
+    }
+  </script>
 </body>
 </html>
