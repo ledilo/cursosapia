@@ -9,7 +9,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden; /* ❌ No scroll */
+      overflow: hidden;
       font-family: 'Roboto', sans-serif;
       color: white;
       background: url('./fondo.png') no-repeat center center fixed;
@@ -20,21 +20,22 @@
 
     .container {
       height: 100vh;
-      padding: 30px 20px;
+      padding: 20px 15px 0;
       background-color: rgba(0, 0, 0, 0.65);
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start; /* 🔼 más arriba */
+      align-items: center;
     }
 
     .logo {
       width: 150px;
-      margin: 0 auto 25px;
+      margin: 10px auto 20px;
     }
 
     .texto-principal {
-      font-size: 1.3rem;
-      margin-bottom: 25px;
+      font-size: 1.25rem;
+      margin-bottom: 20px;
     }
 
     .texto-principal strong {
@@ -47,14 +48,14 @@
       background-color: #25d366;
       color: white;
       font-weight: bold;
-      font-size: 1.1rem;
-      padding: 10px 35px;
+      font-size: 1.05rem;
+      padding: 8px 18px; /* ✅ más chico */
       border-radius: 10px;
       text-decoration: none;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       animation: pulse 1.5s infinite;
-      box-shadow: 0 0 10px #25d366, 0 0 20px #25d366, 0 0 30px #25d366;
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.6); /* ✅ sombra del texto */
+      box-shadow: 0 0 10px #25d366, 0 0 20px #25d366;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     }
 
     @keyframes pulse {
@@ -79,7 +80,7 @@
     .extras {
       font-size: 1rem;
       color: #ddd;
-      margin-top: 15px;
+      margin-top: 10px;
     }
   </style>
 </head>
