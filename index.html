@@ -24,18 +24,20 @@
       background-color: rgba(0, 0, 0, 0.65);
       display: flex;
       flex-direction: column;
-      justify-content: flex-start; /* 🔼 más arriba */
+      justify-content: center; /* 🔽 más al centro */
       align-items: center;
     }
 
     .logo {
-      width: 150px;
-      margin: 10px auto 20px;
+      width: 160px;
+      margin: 0 auto 25px;
+      filter: drop-shadow(0 0 10px rgba(0,0,0,0.6)); /* 🌑 sombra logo */
     }
 
     .texto-principal {
-      font-size: 1.25rem;
-      margin-bottom: 20px;
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      text-shadow: 0 0 5px rgba(0,0,0,0.7); /* sombra texto */
     }
 
     .texto-principal strong {
@@ -48,14 +50,14 @@
       background-color: #25d366;
       color: white;
       font-weight: bold;
-      font-size: 1.05rem;
-      padding: 8px 18px; /* ✅ más chico */
-      border-radius: 10px;
+      font-size: 1.3rem;
+      padding: 14px 40px;
+      border-radius: 12px;
       text-decoration: none;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       animation: pulse 1.5s infinite;
-      box-shadow: 0 0 10px #25d366, 0 0 20px #25d366;
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 10px #25d366, 0 0 20px #25d366, 0 0 30px #25d366;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
     }
 
     @keyframes pulse {
@@ -64,23 +66,21 @@
       100% { transform: scale(1); }
     }
 
-    .info {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
+    .info, .juegos, .extras {
+      font-size: 1.25rem;
+      text-shadow: 0 0 5px rgba(0,0,0,0.6); /* sombra texto */
     }
 
     .juegos {
-      font-size: 1.1rem;
       font-weight: bold;
       color: #ff4d6d;
       text-shadow: 0 0 5px #ff4d6d, 0 0 10px #ff4d6d;
-      margin-bottom: 10px;
+      margin-top: 10px;
     }
 
     .extras {
-      font-size: 1rem;
+      margin-top: 15px;
       color: #ddd;
-      margin-top: 10px;
     }
   </style>
 </head>
