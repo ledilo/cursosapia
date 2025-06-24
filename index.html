@@ -170,22 +170,22 @@
     ¡BONOS DEL 20% TODOS LOS DÍAS!
   </div>
 
-  <script>
-    let eventoDisparado = false;
+  <script> 
+  let eventoDisparado = false;
 
-    function redirigirWhatsapp() {
-      if (!eventoDisparado) {
-        fbq('track', 'Subscribe', {
-          content_name: 'Botón WhatsApp'
-        });
-        eventoDisparado = true;
-      }
-
-      const numeroCodificado = "NTQ5MTEyMzk2MzMwMw=="; // 5491123963303
-      const mensaje = encodeURIComponent("Hola, quiero más información..");
-      const numero = atob(numeroCodificado);
-      window.location.href = `https://wa.me/${numero}?text=${mensaje}`;
+  function redirigirWhatsapp() {
+    if (!eventoDisparado) {
+      fbq('track', 'Subscribe', {
+        content_name: 'Botón WhatsApp'
+      });
+      eventoDisparado = true;
     }
-  </script>
+
+    const numeroCodificado = "NTQ5MjYxNjA4NzIyMw=="; // 5492616087223
+    const mensaje = encodeURIComponent("Hola, quiero más información..");
+    const numero = atob(numeroCodificado);
+    window.location.href = `https://wa.me/${numero}?text=${mensaje}`;
+  }
+</script>
 </body>
 </html>
