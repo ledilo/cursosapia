@@ -176,7 +176,9 @@
   function redirigirWhatsapp() {
     if (!eventoDisparado) {
       fbq('track', 'Subscribe', {
-        content_name: 'Botón WhatsApp'
+        content_name: 'Botón WhatsApp',
+        value: 1000,
+        currency: 'ARS'
       });
       eventoDisparado = true;
     }
