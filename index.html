@@ -141,7 +141,7 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '580008711524307');
+    fbq('init', '520956904388519');
 
     document.addEventListener("DOMContentLoaded", function() {
       fbq('track', 'PageView');
@@ -170,15 +170,15 @@
     ¡BONOS DEL 20% TODOS LOS DÍAS!
   </div>
 
-  <script> 
+  <script>
   let eventoDisparado = false;
 
   function redirigirWhatsapp() {
     if (!eventoDisparado) {
       fbq('track', 'Subscribe', {
         content_name: 'Botón WhatsApp',
-        value: 1000,
-        currency: 'ARS'
+        value: 0,
+        currency: 'USD'
       });
       eventoDisparado = true;
     }
