@@ -1,193 +1,81 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Casino Minijuegos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyStake VIP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background: url('./fondo.png') no-repeat center center fixed;
-      background-size: cover;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #000000, #1a1a1a);
       color: white;
       text-align: center;
-      height: 100%;
-      overflow: hidden;
+      padding: 20px;
     }
-
-    .container {
-      height: 100vh;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      background-color: rgba(0, 0, 0, 0.65);
-      box-sizing: border-box;
-      padding: 30px 15px 0;
-    }
-
     .logo {
-      width: 140px;
-      margin-bottom: 10px;
-      filter: drop-shadow(0 0 10px rgba(0,0,0,0.6));
+      width: 160px;
+      margin: 20px auto;
     }
-
-    .texto-principal {
-      font-size: 1.4rem;
-      margin-bottom: 15px;
-      text-shadow: 0 0 5px rgba(0,0,0,0.7);
+    h1 {
+      color: #ffffff;
+      font-size: 22px;
+      margin: 10px 0;
     }
-
-    .texto-principal strong {
+    .bonus {
+      color: #ffcc00;
+      font-size: 28px;
+      text-shadow: 0 0 8px #ffcc00;
+    }
+    .retiros {
       color: #00ff88;
-      text-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88;
+      font-size: 24px;
+      margin: 20px 0;
+      text-shadow: 0 0 8px #00ff88;
     }
-
-    .whatsapp-btn {
+    .instruccion {
+      font-size: 14px;
+      margin-bottom: 30px;
+      background: #111;
+      padding: 10px;
+      border-radius: 10px;
       display: inline-block;
-      background-color: #25d366;
+    }
+    .btn-wsp {
+      display: inline-block;
+      background: linear-gradient(90deg, #00e676, #00c853);
       color: white;
+      font-size: 16px;
       font-weight: bold;
-      font-size: 1.2rem;
-      padding: 12px 30px;
-      border-radius: 12px;
+      padding: 16px 26px;
+      border-radius: 40px;
       text-decoration: none;
-      margin: 15px 0;
-      animation: pulse 1.5s infinite;
-      box-shadow: 0 0 10px #25d366, 0 0 20px #25d366, 0 0 30px #25d366;
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
-      cursor: pointer;
+      box-shadow: 0 0 15px #00e676;
+      transition: all 0.3s ease;
     }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-      100% { transform: scale(1); }
-    }
-
-    .info {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      text-shadow: 0 0 5px rgba(0,0,0,0.6);
-    }
-
-    .juegos {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #00ff88;
-      text-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88;
-    }
-
-    .footer {
-      display: none; /* Eliminado para no ocupar espacio */
-    }
-
-    .alerta-bono {
-      position: fixed;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 255, 136, 0.2);
-      color: #00ff88;
-      padding: 10px 16px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 1rem;
-      text-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88;
-      box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
-      z-index: 1000;
-      animation: pulseGlow 2s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88; }
-      50% { box-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88; }
-      100% { box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88; }
-    }
-
-    @media screen and (max-width: 400px) {
-      .texto-principal {
-        font-size: 1.2rem;
-      }
-
-      .info, .juegos {
-        font-size: 0.95rem;
-      }
-
-      .whatsapp-btn {
-        font-size: 1rem;
-        padding: 10px 24px;
-      }
-
-      .alerta-bono {
-        font-size: 0.9rem;
-        padding: 8px 12px;
-        bottom: 20px;
-      }
+    .btn-wsp:hover {
+      box-shadow: 0 0 25px #00e676;
+      transform: scale(1.05);
     }
   </style>
-
-  <!-- Meta Pixel Code -->
   <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '520956904388519');
-
-    document.addEventListener("DOMContentLoaded", function() {
-      fbq('track', 'PageView');
-    });
+    function openWhatsApp() {
+      const number = ['261','533','5993'].join('');
+      const url = `https://wa.me/549${number}`;
+      window.open(url, '_blank');
+    }
   </script>
-  <noscript>
-    <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=580008711524307&ev=PageView&noscript=1"/>
-  </noscript>
-  <!-- End Meta Pixel Code -->
 </head>
 <body>
-  <div class="container">
-    <img src="./logo.png" alt="Logo" class="logo" />
-    <p class="texto-principal">
-      Presioná el <strong>botón verde</strong> "WhatsApp" para crearte un usuario.
-    </p>
-    <div class="whatsapp-btn" onclick="redirigirWhatsapp()">WhatsApp</div>
-    <p class="info">Carga mínima: $1000</p>
-    <p class="juegos">
-      Todos los minijuegos: El Pollo, Crocodino, Penales y Más.
-    </p>
-  </div>
+  <img class="logo" src="logo.png" alt="MyStake Logo">
 
-  <div class="alerta-bono">
-    ¡BONOS DEL 20% TODOS LOS DÍAS!
-  </div>
+  <h1>ACCESO VIP EXCLUSIVO</h1>
+  <div class="bonus">¡SUPER BONO EN TU PRIMER DEPÓSITO!</div>
+  <div class="retiros">RETIROS SIN LÍMITES</div>
+  <div class="instruccion">ESCRIBINOS APRETANDO EL BOTÓN DE ABAJO</div>
 
-  <script>
-  let eventoDisparado = false;
-
-  function redirigirWhatsapp() {
-    if (!eventoDisparado) {
-      fbq('track', 'Subscribe', {
-        content_name: 'Botón WhatsApp',
-        value: 0,
-        currency: 'USD'
-      });
-      eventoDisparado = true;
-    }
-
-    const numeroCodificado = "NTQ5MjYxNjA4NzIyMw=="; // 5492616087223
-    const mensaje = encodeURIComponent("Hola, quiero más información..");
-    const numero = atob(numeroCodificado);
-    window.location.href = `https://wa.me/${numero}?text=${mensaje}`;
-  }
-</script>
+  <a class="btn-wsp" href="#" onclick="openWhatsApp()">OBTENER MI BONO AHORA</a>
 </body>
 </html>
