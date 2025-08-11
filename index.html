@@ -94,15 +94,20 @@
   <!-- End Meta Pixel Code -->
   <script>
     function openWhatsApp() {
-      const number = ['261','533','5993'].join('');
-      const url = `https://wa.me/549${number}`;
+      // Número en Base64
+      const encoded = "NTQ5MjYxNjcyOTgyMw==";
+      // Decodificar y crear URL
+      const number = atob(encoded);
+      const url = `https://wa.me/${number}`;
+      
       fbq('track', 'Subscribe', {
         value: 0.00,
         currency: 'USD'
       });
+      
       window.open(url, '_blank');
     }
-  </script>
+</script>
 </head>
 <body>
   <div class="container">
@@ -117,3 +122,4 @@
   </div>
 </body>
 </html>
+
