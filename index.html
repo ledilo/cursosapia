@@ -146,25 +146,31 @@
       const btn = document.querySelector('.btn-wsp');
       if (!btn) return;
 
-      btn.addEventListener('click', function(e){
-        e.preventDefault();
+      btn.addEventListener('click', function (e) {
+  e.preventDefault();
 
-        const number   = b64(WA_B64);
-        const baseMsg  = 'Hola! Vengo por la promo.';
-        const finalMsg = encodeURIComponent(`${baseMsg} ${buildTag(data)}`);
-        const waUrl    = `https://wa.me/${number}?text=${finalMsg}`;
+  const number   = b64(WA_B64);
+  const baseMsg  = 'Hola! Vengo por la promo.';
+  const finalMsg = encodeURIComponent(`${baseMsg} ${buildTag(data)}`);
+  const waUrl    = `https://wa.me/${number}?text=${finalMsg}`;
 
-        if (window.fbq){
-          // Evento estándar (optimización/columnas)
-          fbq('track', 'Lead', data);
-          // Personalizado (análisis por UTM)
-          fbq('trackCustom', 'WA_Click', data);
-          // Tu evento previo
-          fbq('track', 'Subscribe', { value: 0.00, currency: 'USD' });
-        }
+  if (window.fbq) {
+    // Eventos estándar (Meta los reconoce siempre)
+    fbq('track', 'Lead', data);
+    fbq('track', 'Contact', data);
 
-        window.open(waUrl, '_blank');
-      });
+    // Personalizado para análisis por UTM
+    fbq('trackCustom', 'WA_Click', data);
+
+    // Tu evento anterior
+    fbq('track', 'Subscribe', { value: 0.00, currency: 'USD' });
+  }
+
+  // Pequeño delay para asegurar el envío antes de abrir WhatsApp
+  setTimeout(function () {
+    window.open(waUrl, '_blank');
+  }, 350);
+});
     });
   </script>
 </head>
@@ -180,6 +186,7 @@
   </div>
 </body>
 </html>
+
 
 
 
