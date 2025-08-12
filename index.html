@@ -50,10 +50,8 @@
   <script>
     // --- ATRIBUCIÓN UTM + EVENTOS PIXEL + WHATSAPP ---
 
-    // Decodificación segura Base64
     function b64(s){ try { return atob(s); } catch(e){ return s; } }
 
-    // 1) Parsear querystring a objeto
     function parseQuery() {
       const out = {};
       const qs = window.location.search.replace(/^\?/, '');
@@ -66,12 +64,10 @@
       return out;
     }
 
-    // 2) Persistir/leer atribución
     const ATTR_KEY = 'attribution';
     function saveAttr(obj){ try{ localStorage.setItem(ATTR_KEY, JSON.stringify(obj)); }catch(e){} }
     function loadAttr(){ try{ return JSON.parse(localStorage.getItem(ATTR_KEY) || '{}'); }catch(e){ return {}; } }
 
-    // 3) Normalizar y quedarnos con campos clave
     function normalizeAttr(a){
       return {
         utm_source: a.utm_source || '',
@@ -87,31 +83,26 @@
       };
     }
 
-    // 4) Etiqueta compacta para el mensaje de WhatsApp
     function buildTag(a){
       const ad = a.utm_ad || a.ad_id || 'sin_ad';
       const adset = a.utm_adset || a.adset_id || 'sin_adset';
       return `[Origen: ${adset} / ${ad}]`;
     }
 
-    // Config de tu número (Base64 del 5492616729823)
+    // Base64 del 5492616729823
     const WA_B64 = "NTQ5MjYxNjcyOTgyMw==";
 
-    // Al cargar
     document.addEventListener('DOMContentLoaded', function(){
-      // Merge de params nuevos con previos
       const incoming = parseQuery();
       const prev = loadAttr();
       const merged = Object.assign({}, prev, incoming);
       const data = normalizeAttr(merged);
       saveAttr(data);
 
-      // Evento de vista de landing con parámetros
       if (window.fbq) {
         fbq('trackCustom', 'LP_View', data);
       }
 
-      // Preparar botón
       const btn = document.querySelector('.btn-wsp');
       if (btn) {
         btn.addEventListener('click', function(e){
@@ -123,10 +114,14 @@
           const finalMsg = encodeURIComponent(`${baseMsg} ${tag}`);
           const waUrl = `https://wa.me/${number}?text=${finalMsg}`;
 
-          // Trackear clic a WhatsApp (custom + estándar opcional)
           if (window.fbq) {
+            // Evento estándar (aparece siempre para conversiones/optimización)
+            fbq('track', 'Lead', data);
+
+            // Tu evento personalizado (para análisis y breakdown por UTM)
             fbq('trackCustom', 'WA_Click', data);
-            // Si querés mantener el Subscribe, lo dejamos también:
+
+            // Mantengo tu Subscribe si lo querés seguir viendo
             fbq('track', 'Subscribe', { value: 0.00, currency: 'USD' });
           }
 
