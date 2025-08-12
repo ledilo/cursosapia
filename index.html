@@ -87,9 +87,14 @@
       return `[Origen: ${ref}]`;
     }
 
-    document.addEventListener('DOMContentLoaded', function(){
-      const data = normalize(Object.assign({}, load(), parseQuery()));
-      save(data);
+    document.addEventListener('DOMContentLoaded', function () {
+  if (window.fbq && !window.__pvFired) {
+    fbq('track', 'PageView');            // reintento por si el primero no entró
+    window.__pvFired = true;
+  }
+
+  // ...tu código existente (LP_View, botón, etc.)
+});
 
       // Vista de landing con parámetros (útil para diagnóstico)
       if (window.fbq) fbq('trackCustom', 'LP_View', data);
@@ -126,6 +131,7 @@
   </div>
 </body>
 </html>
+
 
 
 
