@@ -9,26 +9,21 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
 
-   /* HEADER solo ícono */
-header{padding:18px 16px 6px;text-align:center}
-/* Ícono de WhatsApp más grande y centrado */
-@media (min-width:1200px){
-  .wa-mark{ width:72px; }
-}
-/* tu logo de marca (debajo) más chico y responsivo */
-/* Logo de tu marca (más grande y responsivo) */
-.logo{
-  width: clamp(120px, 18vw, 180px);
-  height: clamp(120px, 18vw, 180px);
-  border-radius:50%;
-  object-fit:cover;
-  display:block;
-  margin:16px auto 24px;
-  box-shadow:0 6px 20px rgba(0,0,0,.12);
-}
-@media (min-width:1200px){
-  .logo{ width: 200px; height: 200px; } /* extra grande en desktop grande */
-}
+    /* HEADER (solo ícono WhatsApp + tu logo) */
+    header{padding:18px 16px 6px;text-align:center}
+    .wa-mark{display:block;width:clamp(24px,4vw,36px);height:auto;margin:0 auto 10px}
+    @media (min-width:1200px){ .wa-mark{width:40px} }
+    .logo{
+      width: clamp(120px, 18vw, 180px);
+      height: clamp(120px, 18vw, 180px);
+      border-radius:50%;
+      object-fit:cover;
+      display:block;
+      margin:16px auto 24px;
+      box-shadow:0 6px 20px rgba(0,0,0,.12);
+    }
+    @media (min-width:1200px){ .logo{ width:200px; height:200px } }
+
     /* PANEL CTA */
     .cta-panel{width:92%;max-width:1100px;margin:0 auto;background:#e5e5e5;border-radius:24px;padding:28px 20px;text-align:center}
     .cta-text{font-size:18px;margin:6px 0 18px;color:#333}
@@ -36,15 +31,14 @@ header{padding:18px 16px 6px;text-align:center}
     /* BOTÓN con latido + hover/active */
     @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.035)}100%{transform:scale(1)}}
     .boton{
-      display:inline-block; background:var(--wa-dark); color:#fff; text-decoration:none;
-      padding:14px 30px; border-radius:999px; font-weight:700; letter-spacing:.2px;
+      display:inline-block;background:var(--wa-dark);color:#fff;text-decoration:none;
+      padding:14px 30px;border-radius:999px;font-weight:700;letter-spacing:.2px;
       box-shadow:0 8px 20px rgba(0,0,0,.14);
       transition:transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, filter .2s ease;
-      will-change:transform; cursor:pointer; touch-action:manipulation;
-      animation:pulse 2.6s ease-in-out infinite;
+      will-change:transform;cursor:pointer;touch-action:manipulation;animation:pulse 2.6s ease-in-out infinite;
     }
-    .boton:hover{transform:translateY(-1px) scale(1.07); box-shadow:0 14px 28px rgba(0,0,0,.18); filter:saturate(1.06)}
-    .boton:active{transform:translateY(0) scale(.95); box-shadow:0 8px 20px rgba(0,0,0,.14)}
+    .boton:hover{transform:translateY(-1px) scale(1.07);box-shadow:0 14px 28px rgba(0,0,0,.18);filter:saturate(1.06)}
+    .boton:active{transform:translateY(0) scale(.95);box-shadow:0 8px 20px rgba(0,0,0,.14)}
     @media (prefers-reduced-motion: reduce){ .boton{animation:none} }
 
     /* TEXTO INFERIOR + FOOTER */
@@ -72,14 +66,13 @@ header{padding:18px 16px 6px;text-align:center}
 
 <body>
   <header>
-  <img class="wa-mark"
-       src="https://static.whatsapp.net/rsrc.php/yZ/r/JvsnINJ2CZv.svg"
-       alt="WhatsApp">
-  <!-- Tu logo debajo -->
-  <img class="logo" src="logo.png" alt="Logo">
-</header>
+    <img class="wa-mark" src="https://static.whatsapp.net/rsrc.php/yZ/r/JvsnINJ2CZv.svg" alt="WhatsApp">
+    <img class="logo" src="logo.png" alt="Logo">
+  </header>
+
   <div class="cta-panel">
     <div class="cta-text">Envía el siguiente mensaje a través de WhatsApp</div>
+    <!-- href por defecto = anuncio 1 (si el usuario no tiene JS) -->
     <a class="boton" id="wa-btn" href="https://wa.link/2asbte" target="_blank" rel="noopener">Ir al chat</a>
   </div>
 
@@ -95,69 +88,43 @@ header{padding:18px 16px 6px;text-align:center}
     <h2 class="tzt">WhatsApp</h2>
     <p>Envíanos un mensaje por WhatsApp</p>
   </footer>
+
+  <!-- Routing por anuncio (1..8) + Lead con eventID -->
   <script>
-(function(){
-  // 1) Detectar el número de anuncio (1..8)
-  const url = new URL(location.href);
-  const q = url.searchParams;
-  let raw = q.get('src') || q.get('scr') || '';
-  if (!raw && url.hash) {
-    const h = new URLSearchParams(url.hash.replace(/^#\?*/, ''));
-    raw = h.get('src') || h.get('scr') || '';
-  }
-  const n = (String(raw).match(/\d+/)||[])[0];
-  const SRC = (n && +n>=1 && +n<=8) ? String(+n) : '1';
-
-  // 2) Tus 8 wa.link
-  const LINKS = {
-    '1': 'https://wa.link/2asbte',
-    '2': 'https://wa.link/m082kf',
-    '3': 'https://wa.link/h1vryi',
-    '4': 'https://wa.link/peu74c',
-    '5': 'https://wa.link/yn3j5d',
-    '6': 'https://wa.link/osmiau',
-    '7': 'https://wa.link/1617b3',
-    '8': 'https://wa.link/autvfs'
-  };
-
-  // 3) Setear el botón + Pixel (solo Lead)
-  const btn = document.getElementById('wa-btn');
-  if (!btn) return;
-  btn.href = LINKS[SRC] || LINKS['1'];
-
-  btn.addEventListener('click', () => {
-    if (window.fbq) {
-      fbq('track', 'Lead', { src: SRC, content_name: 'WhatsApp Click' });
+  (function(){
+    const url = new URL(location.href);
+    const q = url.searchParams;
+    let raw = q.get('src') || q.get('scr') || '';
+    if (!raw && url.hash) {
+      const h = new URLSearchParams(url.hash.replace(/^#\?*/, ''));
+      raw = h.get('src') || h.get('scr') || '';
     }
-  });
-})();
-</script>
+    const n = (String(raw).match(/\d+/)||[])[0];
+    const SRC = (n && +n>=1 && +n<=8) ? String(+n) : '1';
+
+    const LINKS = {
+      '1': 'https://wa.link/2asbte',
+      '2': 'https://wa.link/m082kf',
+      '3': 'https://wa.link/h1vryi',
+      '4': 'https://wa.link/peu74c',
+      '5': 'https://wa.link/yn3j5d',
+      '6': 'https://wa.link/osmiau',
+      '7': 'https://wa.link/1617b3',
+      '8': 'https://wa.link/autvfs'
+    };
+
+    const btn = document.getElementById('wa-btn');
+    if (!btn) return;
+    btn.href = LINKS[SRC] || LINKS['1'];
+
+    btn.addEventListener('click', () => {
+      // eventID para deduplicar si usás CAPI (en el servidor enviá el mismo ID)
+      const eventId = 'lead_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+      if (window.fbq) {
+        fbq('track','Lead', { src: SRC, content_name: 'WhatsApp Click' }, { eventID: eventId });
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
