@@ -4,7 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WhatsApp</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+  :root{--wa:#25D366;--wa-dark:#128C7E;--footer:#0f1a21;--text:#111}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
+  header{padding:24px 16px 8px;text-align:center}
+  header .wa{display:inline-flex;align-items:center;gap:8px;color:var(--wa);font-weight:700;font-size:24px}
+  header .wa img.icon{width:28px;height:28px}
+  .brand{display:flex;justify-content:center}
+  .brand img{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:0 6px 20px rgba(0,0,0,.12);margin:12px auto 24px}
+  .cta-panel{width:90%;max-width:1200px;margin:0 auto;background:#e5e5e5;border-radius:24px;padding:28px 20px;text-align:center}
+  .cta-text{font-size:18px;margin:6px 0 18px;color:#333}
+  .boton{display:inline-block;background:var(--wa-dark);color:#fff;text-decoration:none;padding:12px 28px;border-radius:999px;font-weight:700}
+  .boton:hover{filter:brightness(.95)}
+  .bcd{text-align:center;padding:24px 16px 0}
+  .rtp{margin:12px 0 8px}
+  .eso a{color:#1a73e8;text-decoration:none}
+  footer{margin-top:140px;background:var(--footer);color:#fff;text-align:center;padding:40px 16px}
+  footer h2{margin:0 0 8px;font-size:2rem}
+</style>
 
   <!-- Meta Pixel Code (tu pixel) -->
   <script>
@@ -24,18 +42,22 @@
 
 <body>
   <header>
-    <!-- Usarás /logo.png subido a Vercel -->
+  <div class="wa">
+    <img class="icon" src="https://static.whatsapp.net/rsrc.php/yZ/r/JvsnINJ2CZv.svg" alt="WhatsApp" />
+    <span>WhatsApp</span>
+  </div>
+  <div class="brand">
+    <!-- Subí tu logo a /logo.png en Vercel -->
     <img src="logo.png" alt="Logo" />
-  </header>
+  </div>
+</header>
 
   <!-- (Se quitó la imagen externa del otro sitio) -->
 
-  <div class="fondo">
-    <h2>
-      <p class="abc">Enviá el siguiente mensaje a través de WhatsApp</p>
-    </h2>
-    <a class="boton" id="wa-btn" href="https://wa.link/r7w4el" target="_blank" rel="noopener">Ir al chat</a>
-  </div>
+  <div class="cta-panel">
+  <div class="cta-text">Envía el siguiente mensaje a través de WhatsApp</div>
+  <a class="boton" id="wa-btn" href="https://wa.link/r7w4el" target="_blank" rel="noopener">Ir al chat</a>
+</div>
 
   <div class="bcd">
     <p class="rtp">¡Hola! Quiero crear un usuario, mi nombre es:</p>
@@ -47,8 +69,8 @@
 
   <footer>
     <h2 class="tzt">WhatsApp</h2>
-    <p>Enviános un mensaje por WhatsApp</p>
-  </footer>
+<p>Envíanos un mensaje por WhatsApp</p>
+</footer>
 
   <script>
     // Lee ?src=1..5 del URL para identificar el anuncio en tus métricas
