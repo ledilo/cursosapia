@@ -9,17 +9,23 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
 
-    /* HEADER estilo logo WhatsApp */
-    /* HEADER solo ícono */
+   /* HEADER solo ícono */
 header{padding:18px 16px 6px;text-align:center}
 .wa-mark{
   display:block;
-  width:48px;        /* cambiá este valor si lo querés más grande/chico */
+  width: clamp(28px, 4.5vw, 40px); /* antes 48–56px */
   height:auto;
-  margin:0 auto 12px;
+  margin:0 auto 10px;
 }
-@media (min-width:768px){
-  .wa-mark{width:56px;}
+/* tu logo de marca (debajo) más chico y responsivo */
+.logo{
+  width: clamp(80px, 14vw, 110px);
+  height: clamp(80px, 14vw, 110px);
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  margin:12px auto 20px;
+  box-shadow:0 6px 20px rgba(0,0,0,.12);
 }
 
     /* PANEL CTA */
@@ -102,6 +108,7 @@ header{padding:18px 16px 6px;text-align:center}
   </script>
 </body>
 </html>
+
 
 
 
