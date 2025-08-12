@@ -97,19 +97,25 @@ header{padding:18px 16px 6px;text-align:center}
   </footer>
 
   <script>
-  // Lee src (o scr) del URL. Default: 1
+  // Lee src (o scr). Default: 1
   const qs  = new URLSearchParams(location.search);
   const SRC = qs.get('src') || qs.get('scr') || '1';
 
-  // Mensaje dinámico para tu shortlink
-  const text = `Hola! Vengo del anuncio ${SRC}. Quiero crear un usuario, mi nombre es:`;
-
-  // Sobrescribe el href del botón usando wa.link/r7w4el con ?text=
   const btn = document.getElementById('wa-btn');
-  btn.href  = `https://wa.link/r7w4el?text=${encodeURIComponent(text)}`;
 
-  // Pixel con parámetro src
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault(); // no uses el href real, lo controlamos nosotros
+
+    // Texto dinámico
+    const text = `Hola! Vengo del anuncio ${SRC}. Quiero crear un usuario, mi nombre es:`;
+
+    // Deep link oficial (tu número en E.164 sin +)
+    const targetUrl = `https://wa.me/5492616729823?text=${encodeURIComponent(text)}`;
+
+    // Abrir WhatsApp en nueva pestaña/ventana
+    window.open(targetUrl, '_blank', 'noopener');
+
+    // Pixel con parámetro src
     if (window.fbq) {
       fbq('trackCustom','WhatsAppClick',{ src: String(SRC) });
       fbq('track','Lead',{ content_name:'WhatsApp Click', src: String(SRC) });
@@ -118,6 +124,7 @@ header{padding:18px 16px 6px;text-align:center}
 </script>
 </body>
 </html>
+
 
 
 
