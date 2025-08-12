@@ -108,33 +108,33 @@ header{padding:18px 16px 6px;text-align:center}
   const n = (String(raw).match(/\d+/)||[])[0];
   const SRC = (n && +n>=1 && +n<=8) ? String(+n) : '1';
 
-  // 2) Tus 8 wa.link (solo wa.link)
+  // 2) Tus 8 wa.link
   const LINKS = {
-    '1': 'https://wa.link/2asbte', // anuncio 1
-    '2': 'https://wa.link/m082kf', // anuncio 2
-    '3': 'https://wa.link/h1vryi', // anuncio 3
-    '4': 'https://wa.link/peu74c', // anuncio 4
-    '5': 'https://wa.link/yn3j5d', // anuncio 5
-    '6': 'https://wa.link/osmiau', // anuncio 6
-    '7': 'https://wa.link/1617b3', // anuncio 7
-    '8': 'https://wa.link/autvfs'  // anuncio 8
+    '1': 'https://wa.link/2asbte',
+    '2': 'https://wa.link/m082kf',
+    '3': 'https://wa.link/h1vryi',
+    '4': 'https://wa.link/peu74c',
+    '5': 'https://wa.link/yn3j5d',
+    '6': 'https://wa.link/osmiau',
+    '7': 'https://wa.link/1617b3',
+    '8': 'https://wa.link/autvfs'
   };
 
-  // 3) Setear el botón + pixel (fallback a link 1 si falta)
+  // 3) Setear el botón + Pixel (solo Lead)
   const btn = document.getElementById('wa-btn');
   if (!btn) return;
   btn.href = LINKS[SRC] || LINKS['1'];
 
   btn.addEventListener('click', () => {
     if (window.fbq) {
-      fbq('trackCustom','WhatsAppClick',{ src: SRC });
-      fbq('track','Lead',{ content_name:'WhatsApp Click', src: SRC });
+      fbq('track', 'Lead', { src: SRC, content_name: 'WhatsApp Click' });
     }
   });
 })();
 </script>
 </body>
 </html>
+
 
 
 
