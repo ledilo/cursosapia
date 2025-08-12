@@ -8,106 +8,133 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
     html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      font-family: 'Orbitron', sans-serif;
-      background: #000000;
-      color: white;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
+      margin: 0; padding: 0; width: 100%; height: 100%;
+      font-family: 'Orbitron', sans-serif; background: #000; color: #fff;
+      text-align: center; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; overflow: hidden;
     }
-    .container {
-      width: 90%;
-      max-width: 500px;
-    }
-    .logo {
-      width: 60%;
-      max-width: 200px;
-      margin: 20px auto;
-    }
-    h1 {
-      color: #ffffff;
-      font-size: 6vw;
-      margin: 10px 0;
-    }
-    .bonus {
-      color: #ffcc00;
-      font-size: 7vw;
-      text-shadow: 0 0 8px #ffcc00;
-      margin-top: 10px;
-    }
-    .retiros {
-      color: #00ff88;
-      font-size: 6vw;
-      margin: 20px 0;
-      text-shadow: 0 0 8px #00ff88;
-    }
-    .instruccion {
-      font-size: 4vw;
-      margin-bottom: 30px;
-      background: #111;
-      padding: 10px;
-      border-radius: 10px;
-      display: inline-block;
-    }
+    .container { width: 90%; max-width: 500px; }
+    .logo { width: 60%; max-width: 200px; margin: 20px auto; }
+    h1 { color: #fff; font-size: 6vw; margin: 10px 0; }
+    .bonus { color: #ffcc00; font-size: 7vw; text-shadow: 0 0 8px #ffcc00; margin-top: 10px; }
+    .retiros { color: #00ff88; font-size: 6vw; margin: 20px 0; text-shadow: 0 0 8px #00ff88; }
+    .instruccion { font-size: 4vw; margin-bottom: 30px; background: #111; padding: 10px; border-radius: 10px; display: inline-block; }
     .btn-wsp {
-      display: inline-block;
-      background: linear-gradient(90deg, #00e676, #00c853);
-      color: white;
-      font-size: 5vw;
-      font-weight: bold;
-      padding: 16px 32px;
-      border-radius: 40px;
-      text-decoration: none;
-      box-shadow: 0 0 15px #00e676;
+      display: inline-block; background: linear-gradient(90deg, #00e676, #00c853);
+      color: #fff; font-size: 5vw; font-weight: bold; padding: 16px 32px;
+      border-radius: 40px; text-decoration: none; box-shadow: 0 0 15px #00e676;
       transition: all 0.3s ease;
     }
-    .btn-wsp:hover {
-      box-shadow: 0 0 25px #00e676;
-      transform: scale(1.05);
-    }
+    .btn-wsp:hover { box-shadow: 0 0 25px #00e676; transform: scale(1.05); }
   </style>
+
   <!-- Meta Pixel Code -->
   <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    
-    fbq('init', '973322538310425'); 
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){
+      n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '973322538310425');
     fbq('track', 'PageView');
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1"/>
+         src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1"/>
   </noscript>
   <!-- End Meta Pixel Code -->
+
   <script>
-    function openWhatsApp() {
-      // Número en Base64
-      const encoded = "NTQ5MjYxNjcyOTgyMw==";
-      // Decodificar y crear URL
-      const number = atob(encoded);
-      const url = `https://wa.me/${number}`;
-      
-      fbq('track', 'Subscribe', {
-        value: 0.00,
-        currency: 'USD'
+    // --- ATRIBUCIÓN UTM + EVENTOS PIXEL + WHATSAPP ---
+
+    // Decodificación segura Base64
+    function b64(s){ try { return atob(s); } catch(e){ return s; } }
+
+    // 1) Parsear querystring a objeto
+    function parseQuery() {
+      const out = {};
+      const qs = window.location.search.replace(/^\?/, '');
+      if (!qs) return out;
+      qs.split('&').forEach(pair => {
+        if (!pair) return;
+        const [k, v=''] = pair.split('=');
+        out[decodeURIComponent(k)] = decodeURIComponent(v);
       });
-      
-      window.open(url, '_blank');
+      return out;
     }
-</script>
+
+    // 2) Persistir/leer atribución
+    const ATTR_KEY = 'attribution';
+    function saveAttr(obj){ try{ localStorage.setItem(ATTR_KEY, JSON.stringify(obj)); }catch(e){} }
+    function loadAttr(){ try{ return JSON.parse(localStorage.getItem(ATTR_KEY) || '{}'); }catch(e){ return {}; } }
+
+    // 3) Normalizar y quedarnos con campos clave
+    function normalizeAttr(a){
+      return {
+        utm_source: a.utm_source || '',
+        utm_medium: a.utm_medium || '',
+        utm_campaign: a.utm_campaign || '',
+        utm_adset: a.utm_adset || '',
+        utm_ad: a.utm_ad || '',
+        campaign_id: a.campaign_id || '',
+        adset_id: a.adset_id || '',
+        ad_id: a.ad_id || '',
+        placement: a.placement || '',
+        fbclid: a.fbclid || ''
+      };
+    }
+
+    // 4) Etiqueta compacta para el mensaje de WhatsApp
+    function buildTag(a){
+      const ad = a.utm_ad || a.ad_id || 'sin_ad';
+      const adset = a.utm_adset || a.adset_id || 'sin_adset';
+      return `[Origen: ${adset} / ${ad}]`;
+    }
+
+    // Config de tu número (Base64 del 5492616729823)
+    const WA_B64 = "NTQ5MjYxNjcyOTgyMw==";
+
+    // Al cargar
+    document.addEventListener('DOMContentLoaded', function(){
+      // Merge de params nuevos con previos
+      const incoming = parseQuery();
+      const prev = loadAttr();
+      const merged = Object.assign({}, prev, incoming);
+      const data = normalizeAttr(merged);
+      saveAttr(data);
+
+      // Evento de vista de landing con parámetros
+      if (window.fbq) {
+        fbq('trackCustom', 'LP_View', data);
+      }
+
+      // Preparar botón
+      const btn = document.querySelector('.btn-wsp');
+      if (btn) {
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+
+          const number = b64(WA_B64);
+          const baseMsg = 'Hola! Vengo por la promo.';
+          const tag = buildTag(data);
+          const finalMsg = encodeURIComponent(`${baseMsg} ${tag}`);
+          const waUrl = `https://wa.me/${number}?text=${finalMsg}`;
+
+          // Trackear clic a WhatsApp (custom + estándar opcional)
+          if (window.fbq) {
+            fbq('trackCustom', 'WA_Click', data);
+            // Si querés mantener el Subscribe, lo dejamos también:
+            fbq('track', 'Subscribe', { value: 0.00, currency: 'USD' });
+          }
+
+          window.open(waUrl, '_blank');
+        });
+      }
+    });
+  </script>
 </head>
 <body>
   <div class="container">
@@ -118,7 +145,7 @@
     <div class="retiros">RETIROS SIN LÍMITES</div>
     <div class="instruccion">ESCRIBINOS APRETANDO EL BOTÓN DE ABAJO</div>
 
-    <a class="btn-wsp" href="#" onclick="openWhatsApp()">OBTENER MI BONO AHORA</a>
+    <a class="btn-wsp" href="#">OBTENER MI BONO AHORA</a>
   </div>
 </body>
 </html>
