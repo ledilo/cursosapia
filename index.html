@@ -2,105 +2,71 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MyStake VIP</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
-  <style>
-    :root{ --bg:#000; --fg:#fff; --accent:#00e676; --accent2:#00c853; --gold:#ffcc00; --mint:#00ff88; }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; background:var(--bg); color:var(--fg);
-      font-family:'Orbitron',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .container{ width:min(92vw, 720px); padding:clamp(16px, 3vw, 32px); text-align:center; }
-    .logo{ width:min(60%,220px); max-width:220px; margin:0 auto clamp(16px,2.5vw,24px); display:block; }
-    h1{ margin:0 0 clamp(8px,1.8vw,16px); font-size:clamp(22px,6vw,42px); line-height:1.1; letter-spacing:.5px; }
-    .bonus{ color:var(--gold); font-size:clamp(20px,5.5vw,36px); text-shadow:0 0 8px var(--gold); margin-top:8px; }
-    .retiros{ color:var(--mint); font-size:clamp(18px,5vw,32px); text-shadow:0 0 8px var(--mint); margin:clamp(12px,2.5vw,20px) 0; }
-    .instruccion{
-      display:inline-block; background:#111; border-radius:12px;
-      padding:clamp(10px,2.2vw,14px) clamp(14px,3vw,18px);
-      font-size:clamp(14px,3.8vw,18px); margin-bottom:clamp(18px,3.5vw,28px);
-    }
-    .btn-wsp{
-      display:inline-block; background:linear-gradient(90deg,var(--accent),var(--accent2));
-      color:#fff; text-decoration:none; border-radius:999px;
-      padding:clamp(14px,3.8vw,18px) clamp(22px,6.5vw,36px);
-      font-weight:700; letter-spacing:.3px; font-size:clamp(16px,4.8vw,22px);
-      box-shadow:0 0 15px var(--accent); transition:transform .18s ease, box-shadow .18s ease;
-    }
-    .btn-wsp:hover{ transform:translateY(-2px); box-shadow:0 0 24px var(--accent); }
-    .btn-wsp:active{ transform:translateY(0); }
-    @supports(padding:max(0px)){ .container{ padding-bottom:max(24px, env(safe-area-inset-bottom)); } }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WhatsApp</title>
+  <link rel="stylesheet" href="styles.css" />
 
-  <!-- Meta Pixel -->
+  <!-- Meta Pixel Code (tu pixel) -->
   <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){
-      n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
-      s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
-    }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '973322538310425');
-    fbq('track', 'PageView');  // PageView
+    fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1"/></noscript>
-  <!-- /Meta Pixel -->
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+
+<body>
+  <header>
+    <!-- Usarás /logo.png subido a Vercel -->
+    <img src="logo.png" alt="Logo" />
+  </header>
+
+  <!-- (Se quitó la imagen externa del otro sitio) -->
+
+  <div class="fondo">
+    <h2>
+      <p class="abc">Enviá el siguiente mensaje a través de WhatsApp</p>
+    </h2>
+    <a class="boton" id="wa-btn" href="https://wa.link/r7w4el" target="_blank" rel="noopener">Ir al chat</a>
+  </div>
+
+  <div class="bcd">
+    <p class="rtp">¡Hola! Quiero crear un usuario, mi nombre es:</p>
+    <div class="eso">
+      <p>¿Aún no tenés WhatsApp?</p>
+      <a href="https://www.whatsapp.com/download" target="_blank" rel="noopener">Descargar</a>
+    </div>
+  </div>
+
+  <footer>
+    <h2 class="tzt">WhatsApp</h2>
+    <p>Enviános un mensaje por WhatsApp</p>
+  </footer>
 
   <script>
-    // === SOLO Lead + PageView ===
+    // Lee ?src=1..5 del URL para identificar el anuncio en tus métricas
+    // Ejemplo: https://tudominio.com?src=1 (configuralo en Parámetros de URL del anuncio)
+    const SRC = new URLSearchParams(location.search).get('src') || '';
 
-    // Base64 del número: 5492616729823
-    const WA_B64 = "NTQ5MjYxNjcyOTgyMw==";
-    const b64 = s => { try { return atob(s); } catch { return s; } };
+    // Mide el click al botón de WhatsApp con el parámetro src
+    const btn = document.getElementById('wa-btn');
+    btn.addEventListener('click', function () {
+      if (typeof fbq === 'function') {
+        // Evento personalizado para tu conversión "Lead - WhatsApp Click"
+        fbq('trackCustom', 'WhatsAppClick', { src: String(SRC) });
 
-    // Leer ?src= o (fallback) utm_ad/ad_id
-    function getRef(){
-      const q = {};
-      location.search.slice(1).split('&').forEach(kv=>{
-        if(!kv) return; const [k,v=''] = kv.split('=');
-        q[decodeURIComponent(k)] = decodeURIComponent(v);
-      });
-      return q.src || q.utm_ad || q.ad_id || '';
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.querySelector('.btn-wsp');
-      if (!btn) return;
-
-      const ref = getRef();
-
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        // Lead (incluye de qué anuncio vino)
-        if (window.fbq) fbq('track', 'Lead', { src: ref });
-
-        const baseMsg = 'Hola! Vengo por la promo.' + (ref ? ` [Origen: ${ref}]` : '');
-        const waUrl = `https://wa.me/${b64(WA_B64)}?text=${encodeURIComponent(baseMsg)}`;
-
-        // pequeño delay para asegurar envío
-        setTimeout(() => window.open(waUrl, '_blank'), 300);
-      });
+        // Opcional: también como evento estándar "Lead" por si querés usarlo
+        fbq('track', 'Lead', { content_name: 'WhatsApp Click', src: String(SRC) });
+      }
     });
   </script>
-</head>
-<body>
-  <div class="container">
-    <img class="logo" src="logo.png" alt="MyStake Logo" loading="lazy">
-    <h1>ACCESO VIP EXCLUSIVO</h1>
-    <div class="bonus">¡SUPER BONO EN TU PRIMER DEPÓSITO!</div>
-    <div class="retiros">RETIROS SIN LÍMITES</div>
-    <div class="instruccion">ESCRIBINOS APRETANDO EL BOTÓN DE ABAJO</div>
-
-    <a class="btn-wsp" href="#" role="button" aria-label="Escribir por WhatsApp">OBTENER MI BONO AHORA</a>
-  </div>
 </body>
 </html>
 
