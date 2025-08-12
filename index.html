@@ -7,9 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#000; --fg:#fff; --accent:#00e676; --accent2:#00c853; --gold:#ffcc00; --mint:#00ff88;
-    }
+    :root{ --bg:#000; --fg:#fff; --accent:#00e676; --accent2:#00c853; --gold:#ffcc00; --mint:#00ff88; }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -17,160 +15,101 @@
       font-family:'Orbitron',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       display:flex; align-items:center; justify-content:center;
     }
-    .container{
-      width:min(92vw, 720px);
-      padding:clamp(16px, 3vw, 32px);
-      text-align:center;
-    }
-    .logo{
-      width:min(60%,220px);
-      max-width:220px;
-      margin:0 auto clamp(16px,2.5vw,24px);
-      display:block;
-    }
-    h1{
-      margin:0 0 clamp(8px,1.8vw,16px);
-      font-size:clamp(22px,6vw,42px);
-      line-height:1.1;
-      letter-spacing:0.5px;
-    }
-    .bonus{
-      color:var(--gold);
-      font-size:clamp(20px,5.5vw,36px);
-      text-shadow:0 0 8px var(--gold);
-      margin-top:8px;
-    }
-    .retiros{
-      color:var(--mint);
-      font-size:clamp(18px,5vw,32px);
-      text-shadow:0 0 8px var(--mint);
-      margin:clamp(12px,2.5vw,20px) 0;
-    }
+    .container{ width:min(92vw, 720px); padding:clamp(16px, 3vw, 32px); text-align:center; }
+    .logo{ width:min(60%,220px); max-width:220px; margin:0 auto clamp(16px,2.5vw,24px); display:block; }
+    h1{ margin:0 0 clamp(8px,1.8vw,16px); font-size:clamp(22px,6vw,42px); line-height:1.1; letter-spacing:.5px; }
+    .bonus{ color:var(--gold); font-size:clamp(20px,5.5vw,36px); text-shadow:0 0 8px var(--gold); margin-top:8px; }
+    .retiros{ color:var(--mint); font-size:clamp(18px,5vw,32px); text-shadow:0 0 8px var(--mint); margin:clamp(12px,2.5vw,20px) 0; }
     .instruccion{
-      display:inline-block;
-      background:#111; border-radius:12px;
+      display:inline-block; background:#111; border-radius:12px;
       padding:clamp(10px,2.2vw,14px) clamp(14px,3vw,18px);
-      font-size:clamp(14px,3.8vw,18px);
-      margin-bottom:clamp(18px,3.5vw,28px);
+      font-size:clamp(14px,3.8vw,18px); margin-bottom:clamp(18px,3.5vw,28px);
     }
     .btn-wsp{
-      display:inline-block;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      display:inline-block; background:linear-gradient(90deg,var(--accent),var(--accent2));
       color:#fff; text-decoration:none; border-radius:999px;
       padding:clamp(14px,3.8vw,18px) clamp(22px,6.5vw,36px);
-      font-weight:700; letter-spacing:.3px;
-      font-size:clamp(16px,4.8vw,22px);
-      box-shadow:0 0 15px var(--accent);
-      transition:transform .18s ease, box-shadow .18s ease;
+      font-weight:700; letter-spacing:.3px; font-size:clamp(16px,4.8vw,22px);
+      box-shadow:0 0 15px var(--accent); transition:transform .18s ease, box-shadow .18s ease;
     }
     .btn-wsp:hover{ transform:translateY(-2px); box-shadow:0 0 24px var(--accent); }
     .btn-wsp:active{ transform:translateY(0); }
-    /* Safe areas (iPhone notch) */
-    @supports(padding:max(0px)){
-      .container{ padding-bottom:max(24px, env(safe-area-inset-bottom)); }
-    }
+    @supports(padding:max(0px)){ .container{ padding-bottom:max(24px, env(safe-area-inset-bottom)); } }
   </style>
 
-  <!-- Meta Pixel Code -->
+  <!-- Meta Pixel -->
   <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){
       n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)};
       if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
+      n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+      s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
+    }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
     fbq('init', '973322538310425');
     fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1"/></noscript>
-  <!-- End Meta Pixel Code -->
+  <!-- /Meta Pixel -->
 
   <script>
-    // --- UTM + PIXEL + WHATSAPP ---
+    // === ATRIBUCIÓN + WHATSAPP ===
 
     // Base64 del número: 5492616729823
     const WA_B64 = "NTQ5MjYxNjcyOTgyMw==";
 
     function b64(s){ try{ return atob(s); }catch(_){ return s; } }
-
     function parseQuery(){
-      const out={}, qs=location.search.replace(/^\?/,'');
-      if(!qs) return out;
-      qs.split('&').forEach(p=>{
-        if(!p) return;
-        const [k,v=''] = p.split('=');
-        out[decodeURIComponent(k)] = decodeURIComponent(v);
-      });
+      const out={}, qs=location.search.replace(/^\?/,''); if(!qs) return out;
+      qs.split('&').forEach(p=>{ if(!p) return; const [k,v='']=p.split('='); out[decodeURIComponent(k)] = decodeURIComponent(v); });
       return out;
     }
 
-    const ATTR_KEY='attribution';
-    const saveAttr=o=>{ try{ localStorage.setItem(ATTR_KEY, JSON.stringify(o)); }catch(_){ } };
-    const loadAttr=()=>{ try{ return JSON.parse(localStorage.getItem(ATTR_KEY)||'{}'); }catch(_){ return {}; } };
+    const KEY='attribution';
+    const save=o=>{ try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(_){ } };
+    const load=()=>{ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(_){ return {}; } };
 
+    // TOMAMOS "src" como identificador principal del anuncio (fallback utm_ad/ad_id)
     function normalize(a){
       return {
-        utm_source:a.utm_source||'',
-        utm_medium:a.utm_medium||'',
-        utm_campaign:a.utm_campaign||'',
-        utm_adset:a.utm_adset||'',
-        utm_ad:a.utm_ad||'',
-        campaign_id:a.campaign_id||'',
-        adset_id:a.adset_id||'',
-        ad_id:a.ad_id||'',
-        placement:a.placement||'',
-        fbclid:a.fbclid||''
+        src: a.src || a.utm_ad || a.ad_id || '',
+        utm_source:a.utm_source||'', utm_medium:a.utm_medium||'', utm_campaign:a.utm_campaign||'',
+        utm_adset:a.utm_adset||'', utm_ad:a.utm_ad||'',
+        campaign_id:a.campaign_id||'', adset_id:a.adset_id||'', ad_id:a.ad_id||'',
+        placement:a.placement||'', fbclid:a.fbclid||''
       };
     }
 
     function buildTag(a){
-      const ad = a.utm_ad || a.ad_id || 'sin_ad';
-      const adset = a.utm_adset || a.adset_id || 'sin_adset';
-      return `[Origen: ${adset} / ${ad}]`;
+      const ref = a.src || 'sin_ref';
+      return `[Origen: ${ref}]`;
     }
 
     document.addEventListener('DOMContentLoaded', function(){
-      // Merge atribución
-      const incoming = parseQuery();
-      const prev = loadAttr();
-      const data = normalize(Object.assign({}, prev, incoming));
-      saveAttr(data);
+      const data = normalize(Object.assign({}, load(), parseQuery()));
+      save(data);
 
-      // Vista de landing
+      // Vista de landing con parámetros (útil para diagnóstico)
       if (window.fbq) fbq('trackCustom', 'LP_View', data);
 
-      // Botón WhatsApp
       const btn = document.querySelector('.btn-wsp');
       if (!btn) return;
 
-      btn.addEventListener('click', function (e) {
-  e.preventDefault();
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
 
-  const number   = b64(WA_B64);
-  const baseMsg  = 'Hola! Vengo por la promo.';
-  const finalMsg = encodeURIComponent(`${baseMsg} ${buildTag(data)}`);
-  const waUrl    = `https://wa.me/${number}?text=${finalMsg}`;
+        const number   = b64(WA_B64);
+        const baseMsg  = 'Hola! Vengo por la promo.';
+        const finalMsg = encodeURIComponent(`${baseMsg} ${buildTag(data)}`);
+        const waUrl    = `https://wa.me/${number}?text=${finalMsg}`;
 
-  if (window.fbq) {
-    // Eventos estándar (Meta los reconoce siempre)
-    fbq('track', 'Lead', data);
-    fbq('track', 'Contact', data);
+        // Evento estándar con el "src" incluido → sirve para optimizar y reportar
+        if (window.fbq) fbq('track', 'Lead', data);
 
-    // Personalizado para análisis por UTM
-    fbq('trackCustom', 'WA_Click', data);
-
-    // Tu evento anterior
-    fbq('track', 'Subscribe', { value: 0.00, currency: 'USD' });
-  }
-
-  // Pequeño delay para asegurar el envío antes de abrir WhatsApp
-  setTimeout(function () {
-    window.open(waUrl, '_blank');
-  }, 350);
-});
+        // Delay corto para asegurar envío y luego abrir WhatsApp
+        setTimeout(()=>{ window.open(waUrl, '_blank'); }, 350);
+      });
     });
   </script>
 </head>
@@ -186,6 +125,7 @@
   </div>
 </body>
 </html>
+
 
 
 
