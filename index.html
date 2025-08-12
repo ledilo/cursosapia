@@ -95,29 +95,39 @@ header{padding:18px 16px 6px;text-align:center}
     <h2 class="tzt">WhatsApp</h2>
     <p>Envíanos un mensaje por WhatsApp</p>
   </footer>
-
   <script>
-  // Lee src (o scr). Default: 1
-  const qs  = new URLSearchParams(location.search);
-  const SRC = qs.get('src') || qs.get('scr') || '1';
+(function(){
+  // 1) Leer src desde varias claves y extraer números
+  const q = new URLSearchParams(location.search);
+  let raw = q.get('src') || q.get('scr') || q.get('Src') || q.get('SRC') || q.get('utm_content') || '';
+  if (!raw) {
+    const m = location.search.match(/[?&](?:src|scr)=([^&]+)/i);
+    if (m) raw = decodeURIComponent(m[1]);
+  }
+  const num = (String(raw).match(/\d+/) || [])[0];
+  const SRC = num || '1'; // <- default si nada vino
 
-  // Mensaje dinámico
+  // 2) Mensaje dinámico y wa.link sin texto
   const text = `Hola! Vengo del anuncio ${SRC}. Quiero crear un usuario, mi nombre es:`;
+  const btn  = document.getElementById('wa-btn');
+  if (btn){
+    // Forzar el shortlink con el texto dinámico
+    btn.href = `https://wa.link/9goij7?text=${encodeURIComponent(text)}`;
+    btn.addEventListener('click', function(){
+      if (window.fbq){
+        fbq('trackCustom','WhatsAppClick',{ src: SRC });
+        fbq('track','Lead',{ content_name:'WhatsApp Click', src: SRC });
+      }
+    });
+  }
 
-  // Setea el href usando tu shortlink sin texto
-  const btn = document.getElementById('wa-btn');
-  btn.href  = `https://wa.link/9goij7?text=${encodeURIComponent(text)}`;
-
-  // Pixel con parámetro src
-  btn.addEventListener('click', () => {
-    if (window.fbq) {
-      fbq('trackCustom','WhatsAppClick',{ src: String(SRC) });
-      fbq('track','Lead',{ content_name:'WhatsApp Click', src: String(SRC) });
-    }
-  });
+  // DEBUG opcional:
+  // console.log('src detectado:', SRC, 'raw:', raw);
+})();
 </script>
 </body>
 </html>
+
 
 
 
