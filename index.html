@@ -96,37 +96,52 @@ header{padding:18px 16px 6px;text-align:center}
     <p>Envíanos un mensaje por WhatsApp</p>
   </footer>
   <script>
-(function(){
-  // 1) Leer src desde varias claves y extraer números
-  const q = new URLSearchParams(location.search);
-  let raw = q.get('src') || q.get('scr') || q.get('Src') || q.get('SRC') || q.get('utm_content') || '';
-  if (!raw) {
-    const m = location.search.match(/[?&](?:src|scr)=([^&]+)/i);
-    if (m) raw = decodeURIComponent(m[1]);
-  }
-  const num = (String(raw).match(/\d+/) || [])[0];
-  const SRC = num || '1'; // <- default si nada vino
+document.addEventListener('DOMContentLoaded', function () {
+  function getSrc() {
+    const url = new URL(window.location.href);
 
-  // 2) Mensaje dinámico y wa.link sin texto
+    // 1) Buscar en la query
+    const q = url.searchParams;
+    let raw = q.get('src') || q.get('scr') || q.get('Src') || q.get('SRC') || q.get('utm_content') || '';
+
+    // 2) Si no vino, buscar en el hash (#src=3, #?src=3, etc.)
+    if (!raw && url.hash) {
+      const hash = url.hash.replace(/^#\?*/, ''); // quita # o #?
+      const h = new URLSearchParams(hash);
+      raw = h.get('src') || h.get('scr') || '';
+    }
+
+    // 3) Extraer número
+    const num = (String(raw).match(/\d+/) || [])[0];
+    return num || '1';
+  }
+
+  const SRC = getSrc();
+  const btn = document.getElementById('wa-btn');
+  if (!btn) return;
+
   const text = `Hola! Vengo del anuncio ${SRC}. Quiero crear un usuario, mi nombre es:`;
-  const btn  = document.getElementById('wa-btn');
-  if (btn){
-    // Forzar el shortlink con el texto dinámico
-    btn.href = `https://wa.link/9goij7?text=${encodeURIComponent(text)}`;
-    btn.addEventListener('click', function(){
-      if (window.fbq){
-        fbq('trackCustom','WhatsAppClick',{ src: SRC });
-        fbq('track','Lead',{ content_name:'WhatsApp Click', src: SRC });
-      }
-    });
-  }
 
-  // DEBUG opcional:
-  // console.log('src detectado:', SRC, 'raw:', raw);
-})();
+  // Setea tu shortlink SIN texto predefinido
+  btn.href = `https://wa.link/9goij7?text=${encodeURIComponent(text)}`;
+
+  // Fallback por si el navegador ignora el href dinámico
+  btn.addEventListener('click', function (e) {
+    // Si querés forzar el open, descomentá estas 3 líneas:
+    // e.preventDefault();
+    // window.open(`https://wa.link/9goij7?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    // return;
+
+    if (window.fbq) {
+      fbq('trackCustom','WhatsAppClick',{ src: String(SRC) });
+      fbq('track','Lead',{ content_name:'WhatsApp Click', src: String(SRC) });
+    }
+  });
+});
 </script>
 </body>
 </html>
+
 
 
 
