@@ -1,31 +1,74 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MyStake VIP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    html, body {
-      margin: 0; padding: 0; width: 100%; height: 100%;
-      font-family: 'Orbitron', sans-serif; background: #000; color: #fff;
-      text-align: center; display: flex; flex-direction: column;
-      justify-content: center; align-items: center; overflow: hidden;
+    :root{
+      --bg:#000; --fg:#fff; --accent:#00e676; --accent2:#00c853; --gold:#ffcc00; --mint:#00ff88;
     }
-    .container { width: 90%; max-width: 500px; }
-    .logo { width: 60%; max-width: 200px; margin: 20px auto; }
-    h1 { color: #fff; font-size: 6vw; margin: 10px 0; }
-    .bonus { color: #ffcc00; font-size: 7vw; text-shadow: 0 0 8px #ffcc00; margin-top: 10px; }
-    .retiros { color: #00ff88; font-size: 6vw; margin: 20px 0; text-shadow: 0 0 8px #00ff88; }
-    .instruccion { font-size: 4vw; margin-bottom: 30px; background: #111; padding: 10px; border-radius: 10px; display: inline-block; }
-    .btn-wsp {
-      display: inline-block; background: linear-gradient(90deg, #00e676, #00c853);
-      color: #fff; font-size: 5vw; font-weight: bold; padding: 16px 32px;
-      border-radius: 40px; text-decoration: none; box-shadow: 0 0 15px #00e676;
-      transition: all 0.3s ease;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:'Orbitron',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      display:flex; align-items:center; justify-content:center;
     }
-    .btn-wsp:hover { box-shadow: 0 0 25px #00e676; transform: scale(1.05); }
+    .container{
+      width:min(92vw, 720px);
+      padding:clamp(16px, 3vw, 32px);
+      text-align:center;
+    }
+    .logo{
+      width:min(60%,220px);
+      max-width:220px;
+      margin:0 auto clamp(16px,2.5vw,24px);
+      display:block;
+    }
+    h1{
+      margin:0 0 clamp(8px,1.8vw,16px);
+      font-size:clamp(22px,6vw,42px);
+      line-height:1.1;
+      letter-spacing:0.5px;
+    }
+    .bonus{
+      color:var(--gold);
+      font-size:clamp(20px,5.5vw,36px);
+      text-shadow:0 0 8px var(--gold);
+      margin-top:8px;
+    }
+    .retiros{
+      color:var(--mint);
+      font-size:clamp(18px,5vw,32px);
+      text-shadow:0 0 8px var(--mint);
+      margin:clamp(12px,2.5vw,20px) 0;
+    }
+    .instruccion{
+      display:inline-block;
+      background:#111; border-radius:12px;
+      padding:clamp(10px,2.2vw,14px) clamp(14px,3vw,18px);
+      font-size:clamp(14px,3.8vw,18px);
+      margin-bottom:clamp(18px,3.5vw,28px);
+    }
+    .btn-wsp{
+      display:inline-block;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#fff; text-decoration:none; border-radius:999px;
+      padding:clamp(14px,3.8vw,18px) clamp(22px,6.5vw,36px);
+      font-weight:700; letter-spacing:.3px;
+      font-size:clamp(16px,4.8vw,22px);
+      box-shadow:0 0 15px var(--accent);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .btn-wsp:hover{ transform:translateY(-2px); box-shadow:0 0 24px var(--accent); }
+    .btn-wsp:active{ transform:translateY(0); }
+    /* Safe areas (iPhone notch) */
+    @supports(padding:max(0px)){
+      .container{ padding-bottom:max(24px, env(safe-area-inset-bottom)); }
+    }
   </style>
 
   <!-- Meta Pixel Code -->
@@ -41,45 +84,45 @@
     fbq('init', '973322538310425');
     fbq('track', 'PageView');
   </script>
-  <noscript>
-    <img height="1" width="1" style="display:none"
-         src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1"/>
-  </noscript>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1"/></noscript>
   <!-- End Meta Pixel Code -->
 
   <script>
-    // --- ATRIBUCIÓN UTM + EVENTOS PIXEL + WHATSAPP ---
+    // --- UTM + PIXEL + WHATSAPP ---
 
-    function b64(s){ try { return atob(s); } catch(e){ return s; } }
+    // Base64 del número: 5492616729823
+    const WA_B64 = "NTQ5MjYxNjcyOTgyMw==";
 
-    function parseQuery() {
-      const out = {};
-      const qs = window.location.search.replace(/^\?/, '');
-      if (!qs) return out;
-      qs.split('&').forEach(pair => {
-        if (!pair) return;
-        const [k, v=''] = pair.split('=');
+    function b64(s){ try{ return atob(s); }catch(_){ return s; } }
+
+    function parseQuery(){
+      const out={}, qs=location.search.replace(/^\?/,'');
+      if(!qs) return out;
+      qs.split('&').forEach(p=>{
+        if(!p) return;
+        const [k,v=''] = p.split('=');
         out[decodeURIComponent(k)] = decodeURIComponent(v);
       });
       return out;
     }
 
-    const ATTR_KEY = 'attribution';
-    function saveAttr(obj){ try{ localStorage.setItem(ATTR_KEY, JSON.stringify(obj)); }catch(e){} }
-    function loadAttr(){ try{ return JSON.parse(localStorage.getItem(ATTR_KEY) || '{}'); }catch(e){ return {}; } }
+    const ATTR_KEY='attribution';
+    const saveAttr=o=>{ try{ localStorage.setItem(ATTR_KEY, JSON.stringify(o)); }catch(_){ } };
+    const loadAttr=()=>{ try{ return JSON.parse(localStorage.getItem(ATTR_KEY)||'{}'); }catch(_){ return {}; } };
 
-    function normalizeAttr(a){
+    function normalize(a){
       return {
-        utm_source: a.utm_source || '',
-        utm_medium: a.utm_medium || '',
-        utm_campaign: a.utm_campaign || '',
-        utm_adset: a.utm_adset || '',
-        utm_ad: a.utm_ad || '',
-        campaign_id: a.campaign_id || '',
-        adset_id: a.adset_id || '',
-        ad_id: a.ad_id || '',
-        placement: a.placement || '',
-        fbclid: a.fbclid || ''
+        utm_source:a.utm_source||'',
+        utm_medium:a.utm_medium||'',
+        utm_campaign:a.utm_campaign||'',
+        utm_adset:a.utm_adset||'',
+        utm_ad:a.utm_ad||'',
+        campaign_id:a.campaign_id||'',
+        adset_id:a.adset_id||'',
+        ad_id:a.ad_id||'',
+        placement:a.placement||'',
+        fbclid:a.fbclid||''
       };
     }
 
@@ -89,64 +132,54 @@
       return `[Origen: ${adset} / ${ad}]`;
     }
 
-    // Base64 del 5492616729823
-    const WA_B64 = "NTQ5MjYxNjcyOTgyMw==";
-
     document.addEventListener('DOMContentLoaded', function(){
+      // Merge atribución
       const incoming = parseQuery();
       const prev = loadAttr();
-      const merged = Object.assign({}, prev, incoming);
-      const data = normalizeAttr(merged);
+      const data = normalize(Object.assign({}, prev, incoming));
       saveAttr(data);
 
-     if (window.fbq) {
-  fbq('trackCustom', 'LP_View', data);
-}
+      // Vista de landing
+      if (window.fbq) fbq('trackCustom', 'LP_View', data);
 
-const btn = document.querySelector('.btn-wsp');
-if (btn) {
-  btn.addEventListener('click', function (e) {
-    e.preventDefault();
+      // Botón WhatsApp
+      const btn = document.querySelector('.btn-wsp');
+      if (!btn) return;
 
-    const number = b64(WA_B64);
-    const baseMsg = 'Hola! Vengo por la promo.';
-    const tag = buildTag(data);
-    const finalMsg = encodeURIComponent(`${baseMsg} ${tag}`);
-    const waUrl = `https://wa.me/${number}?text=${finalMsg}`;
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
 
-    if (window.fbq) {
-      // Evento estándar (para conversiones/optimización)
-      fbq('track', 'Lead', data);
+        const number   = b64(WA_B64);
+        const baseMsg  = 'Hola! Vengo por la promo.';
+        const finalMsg = encodeURIComponent(`${baseMsg} ${buildTag(data)}`);
+        const waUrl    = `https://wa.me/${number}?text=${finalMsg}`;
 
-      // Evento personalizado (análisis y breakdown UTM)
-      fbq('trackCustom', 'WA_Click', data);
+        if (window.fbq){
+          // Evento estándar (optimización/columnas)
+          fbq('track', 'Lead', data);
+          // Personalizado (análisis por UTM)
+          fbq('trackCustom', 'WA_Click', data);
+          // Tu evento previo
+          fbq('track', 'Subscribe', { value: 0.00, currency: 'USD' });
+        }
 
-      // Tu evento estándar anterior
-      fbq('track', 'Subscribe', { value: 0.00, currency: 'USD' });
-    }
-
-    window.open(waUrl, '_blank');
-  });
-}
-
-          window.open(waUrl, '_blank');
-        });
-      }
+        window.open(waUrl, '_blank');
+      });
     });
   </script>
 </head>
 <body>
   <div class="container">
-    <img class="logo" src="logo.png" alt="MyStake Logo">
-
+    <img class="logo" src="logo.png" alt="MyStake Logo" loading="lazy">
     <h1>ACCESO VIP EXCLUSIVO</h1>
     <div class="bonus">¡SUPER BONO EN TU PRIMER DEPÓSITO!</div>
     <div class="retiros">RETIROS SIN LÍMITES</div>
     <div class="instruccion">ESCRIBINOS APRETANDO EL BOTÓN DE ABAJO</div>
 
-    <a class="btn-wsp" href="#">OBTENER MI BONO AHORA</a>
+    <a class="btn-wsp" href="#" role="button" aria-label="Escribir por WhatsApp">OBTENER MI BONO AHORA</a>
   </div>
 </body>
 </html>
+
 
 
