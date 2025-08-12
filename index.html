@@ -80,7 +80,7 @@ header{padding:18px 16px 6px;text-align:center}
 </header>
   <div class="cta-panel">
     <div class="cta-text">Envía el siguiente mensaje a través de WhatsApp</div>
-    <a class="boton" id="wa-btn" href="https://wa.link/9goij7" target="_blank" rel="noopener">Ir al chat</a>
+    <a class="boton" id="wa-btn" href="https://wa.link/2asbte" target="_blank" rel="noopener">Ir al chat</a>
   </div>
 
   <div class="bcd">
@@ -97,69 +97,45 @@ header{padding:18px 16px 6px;text-align:center}
   </footer>
   <script>
 (function(){
-  function findSrc(){
-    const found = [];
-
-    // URL actual: query
-    const url = new URL(window.location.href);
-    const q = url.searchParams;
-    found.push(q.get('src'), q.get('scr'), q.get('Src'), q.get('SRC'), q.get('utm_content'));
-
-    // URL actual: hash (#src=3 o #?src=3)
-    if (url.hash){
-      const hash = url.hash.replace(/^#\?*/, '');
-      const h = new URLSearchParams(hash);
-      found.push(h.get('src'), h.get('scr'));
-    }
-
-    // Referrer (Facebook puede poner tu URL adentro de ?u=)
-    try {
-      if (document.referrer){
-        const ref = new URL(document.referrer);
-        // directo en referrer
-        found.push(ref.searchParams.get('src'), ref.searchParams.get('scr'));
-        // dentro de u= o url=
-        const innerStr = ref.searchParams.get('u') || ref.searchParams.get('url');
-        if (innerStr){
-          const inner = new URL(decodeURIComponent(innerStr));
-          found.push(inner.searchParams.get('src'), inner.searchParams.get('scr'));
-        }
-      }
-    } catch(e){}
-
-    // De lo que encontremos, devolvemos el primer número
-    for (const val of found){
-      if (val && /\d/.test(val)) {
-        const num = (String(val).match(/\d+/)||[])[0];
-        if (num) return num;
-      }
-    }
-    return '1'; // fallback
+  // 1) Detectar el número de anuncio (1..8)
+  const url = new URL(location.href);
+  const q = url.searchParams;
+  let raw = q.get('src') || q.get('scr') || '';
+  if (!raw && url.hash) {
+    const h = new URLSearchParams(url.hash.replace(/^#\?*/, ''));
+    raw = h.get('src') || h.get('scr') || '';
   }
+  const n = (String(raw).match(/\d+/)||[])[0];
+  const SRC = (n && +n>=1 && +n<=8) ? String(+n) : '1';
 
-  const SRC = findSrc();
+  // 2) Tus 8 wa.link (solo wa.link)
+  const LINKS = {
+    '1': 'https://wa.link/2asbte', // anuncio 1
+    '2': 'https://wa.link/m082kf', // anuncio 2
+    '3': 'https://wa.link/h1vryi', // anuncio 3
+    '4': 'https://wa.link/peu74c', // anuncio 4
+    '5': 'https://wa.link/yn3j5d', // anuncio 5
+    '6': 'https://wa.link/osmiau', // anuncio 6
+    '7': 'https://wa.link/1617b3', // anuncio 7
+    '8': 'https://wa.link/autvfs'  // anuncio 8
+  };
+
+  // 3) Setear el botón + pixel (fallback a link 1 si falta)
   const btn = document.getElementById('wa-btn');
   if (!btn) return;
-
-  const text = `Hola! Vengo del anuncio ${SRC}. Quiero crear un usuario, mi nombre es:`;
-  btn.href = `https://wa.link/9goij7?text=${encodeURIComponent(text)}`;
+  btn.href = LINKS[SRC] || LINKS['1'];
 
   btn.addEventListener('click', () => {
     if (window.fbq) {
-      fbq('trackCustom','WhatsAppClick',{ src: String(SRC) });
-      fbq('track','Lead',{ content_name:'WhatsApp Click', src: String(SRC) });
+      fbq('trackCustom','WhatsAppClick',{ src: SRC });
+      fbq('track','Lead',{ content_name:'WhatsApp Click', src: SRC });
     }
   });
-
-  // DEBUG visual (borrá estas 3 líneas cuando termines)
-  const dbg = document.createElement('div');
-  dbg.textContent = 'Anuncio detectado: ' + SRC;
-  dbg.style.cssText = 'margin-top:8px;font-size:12px;color:#666';
-  document.querySelector('.cta-panel')?.appendChild(dbg);
 })();
 </script>
 </body>
 </html>
+
 
 
 
