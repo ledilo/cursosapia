@@ -39,82 +39,54 @@
 
   <!-- Meta Pixel -->
   <script>
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){
-    n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
-    s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
-  }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){
+      n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+      s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
+    }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-  fbq('init', '973322538310425');
-  fbq('track', 'PageView');              // <-- PageView principal
-  window.__pvFired = true;               // <-- flag
-</script>
-<noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1"/></noscript>
+    fbq('init', '973322538310425');
+    fbq('track', 'PageView');  // PageView
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1"/></noscript>
   <!-- /Meta Pixel -->
 
   <script>
-    // === ATRIBUCIÓN + WHATSAPP ===
+    // === SOLO Lead + PageView ===
 
     // Base64 del número: 5492616729823
     const WA_B64 = "NTQ5MjYxNjcyOTgyMw==";
+    const b64 = s => { try { return atob(s); } catch { return s; } };
 
-    function b64(s){ try{ return atob(s); }catch(_){ return s; } }
-    function parseQuery(){
-      const out={}, qs=location.search.replace(/^\?/,''); if(!qs) return out;
-      qs.split('&').forEach(p=>{ if(!p) return; const [k,v='']=p.split('='); out[decodeURIComponent(k)] = decodeURIComponent(v); });
-      return out;
+    // Leer ?src= o (fallback) utm_ad/ad_id
+    function getRef(){
+      const q = {};
+      location.search.slice(1).split('&').forEach(kv=>{
+        if(!kv) return; const [k,v=''] = kv.split('=');
+        q[decodeURIComponent(k)] = decodeURIComponent(v);
+      });
+      return q.src || q.utm_ad || q.ad_id || '';
     }
 
-    const KEY='attribution';
-    const save=o=>{ try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(_){ } };
-    const load=()=>{ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(_){ return {}; } };
-
-    // TOMAMOS "src" como identificador principal del anuncio (fallback utm_ad/ad_id)
-    function normalize(a){
-      return {
-        src: a.src || a.utm_ad || a.ad_id || '',
-        utm_source:a.utm_source||'', utm_medium:a.utm_medium||'', utm_campaign:a.utm_campaign||'',
-        utm_adset:a.utm_adset||'', utm_ad:a.utm_ad||'',
-        campaign_id:a.campaign_id||'', adset_id:a.adset_id||'', ad_id:a.ad_id||'',
-        placement:a.placement||'', fbclid:a.fbclid||''
-      };
-    }
-
-    function buildTag(a){
-      const ref = a.src || 'sin_ref';
-      return `[Origen: ${ref}]`;
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-  if (window.fbq && !window.__pvFired) {
-    fbq('track', 'PageView');            // reintento por si el primero no entró
-    window.__pvFired = true;
-  }
-
-  // ...tu código existente (LP_View, botón, etc.)
-});
-
-      // Vista de landing con parámetros (útil para diagnóstico)
-      if (window.fbq) fbq('trackCustom', 'LP_View', data);
-
+    document.addEventListener('DOMContentLoaded', () => {
       const btn = document.querySelector('.btn-wsp');
       if (!btn) return;
 
-      btn.addEventListener('click', function(e){
+      const ref = getRef();
+
+      btn.addEventListener('click', (e) => {
         e.preventDefault();
 
-        const number   = b64(WA_B64);
-        const baseMsg  = 'Hola! Vengo por la promo.';
-        const finalMsg = encodeURIComponent(`${baseMsg} ${buildTag(data)}`);
-        const waUrl    = `https://wa.me/${number}?text=${finalMsg}`;
+        // Lead (incluye de qué anuncio vino)
+        if (window.fbq) fbq('track', 'Lead', { src: ref });
 
-        // Evento estándar con el "src" incluido → sirve para optimizar y reportar
-        if (window.fbq) fbq('track', 'Lead', data);
+        const baseMsg = 'Hola! Vengo por la promo.' + (ref ? ` [Origen: ${ref}]` : '');
+        const waUrl = `https://wa.me/${b64(WA_B64)}?text=${encodeURIComponent(baseMsg)}`;
 
-        // Delay corto para asegurar envío y luego abrir WhatsApp
-        setTimeout(()=>{ window.open(waUrl, '_blank'); }, 350);
+        // pequeño delay para asegurar envío
+        setTimeout(() => window.open(waUrl, '_blank'), 300);
       });
     });
   </script>
@@ -131,6 +103,7 @@
   </div>
 </body>
 </html>
+
 
 
 
