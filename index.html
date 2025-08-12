@@ -9,31 +9,58 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
 
-    /* TOP */
-    header{padding:20px 16px 8px;text-align:center}
-    .wa{display:inline-flex;align-items:center;gap:8px;color:var(--wa);font-weight:700;font-size:24px}
-    .wa .icon{width:28px;height:28px}
-    .logo{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:0 6px 20px rgba(0,0,0,.12);margin:12px auto 24px;display:block}
+    /* HEADER */
+    header{padding:22px 16px 10px;text-align:center}
+    .wa-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:#eafaf1;border:1px solid #d6f3e3;color:var(--wa);
+      padding:6px 10px;border-radius:999px;font-weight:700;font-size:14px;
+    }
+    .wa-badge .icon{width:18px;height:18px}
+    .logo{
+      width:120px;height:120px;border-radius:50%;object-fit:cover;
+      display:block;margin:14px auto 20px;
+      box-shadow:0 6px 20px rgba(0,0,0,.12);
+    }
 
     /* PANEL CTA */
-    .cta-panel{width:90%;max-width:1200px;margin:0 auto;background:#e5e5e5;border-radius:24px;padding:28px 20px;text-align:center}
+    .cta-panel{width:92%;max-width:1100px;margin:0 auto;background:#e5e5e5;border-radius:24px;padding:28px 20px;text-align:center}
     .cta-text{font-size:18px;margin:6px 0 18px;color:#333}
 
-    /* BOTÓN con zoom */
+    /* BOTÓN con latido + hover/active */
+    @keyframes pulse{
+      0%{transform:scale(1)}
+      50%{transform:scale(1.035)}
+      100%{transform:scale(1)}
+    }
     .boton{
       display:inline-block;background:var(--wa-dark);color:#fff;text-decoration:none;
       padding:14px 30px;border-radius:999px;font-weight:700;letter-spacing:.2px;
       box-shadow:0 8px 20px rgba(0,0,0,.14);
-      transition:transform .16s ease, box-shadow .2s ease, filter .2s ease;
-      will-change:transform; cursor:pointer;
+      transition:transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, filter .2s ease;
+      will-change:transform; cursor:pointer; touch-action:manipulation;
+      animation:pulse 2.6s ease-in-out infinite;
     }
-    .boton:hover{transform:translateY(-1px) scale(1.04);box-shadow:0 14px 28px rgba(0,0,0,.16);filter:saturate(1.05)}
-    .boton:active{transform:translateY(0) scale(.96);box-shadow:0 8px 20px rgba(0,0,0,.14)}
+    .boton:hover{
+      transform:translateY(-1px) scale(1.07);
+      box-shadow:0 14px 28px rgba(0,0,0,.18);
+      filter:saturate(1.06);
+    }
+    .boton:active{
+      transform:translateY(0) scale(.95);
+      box-shadow:0 8px 20px rgba(0,0,0,.14);
+    }
+    @media (prefers-reduced-motion: reduce){ .boton{animation:none} }
 
-    /* TEXTO INFERIOR */
+    /* INFO INFERIOR */
     .bcd{text-align:center;padding:24px 16px 0}
     .rtp{margin:12px 0 8px}
     .eso a{color:#1a73e8;text-decoration:none}
+
+    /* SRC badge (debug visual) */
+    .src-badge{margin-top:12px;font-size:12px;color:#666}
+
+    /* FOOTER */
     footer{margin-top:140px;background:var(--footer);color:#fff;text-align:center;padding:40px 16px}
     footer h2{margin:0 0 8px;font-size:2rem}
   </style>
@@ -55,7 +82,7 @@
 
 <body>
   <header>
-    <div class="wa">
+    <div class="wa-badge">
       <img class="icon" src="https://static.whatsapp.net/rsrc.php/yZ/r/JvsnINJ2CZv.svg" alt="">
       <span>WhatsApp</span>
     </div>
@@ -66,6 +93,7 @@
   <div class="cta-panel">
     <div class="cta-text">Envía el siguiente mensaje a través de WhatsApp</div>
     <a class="boton" id="wa-btn" href="https://wa.link/r7w4el" target="_blank" rel="noopener">Ir al chat</a>
+    <div class="src-badge" id="src-badge" style="display:none;"></div>
   </div>
 
   <div class="bcd">
@@ -85,6 +113,13 @@
     // Lee ?src=1..5 para identificar el anuncio
     const SRC = new URLSearchParams(location.search).get('src') || '';
     const btn = document.getElementById('wa-btn');
+
+    // Muestra un badge para confirmar que llegó el src (podés quitarlo luego)
+    const badge = document.getElementById('src-badge');
+    if (SRC) {
+      badge.textContent = 'Fuente: Anuncio ' + SRC;
+      badge.style.display = 'block';
+    }
 
     // Evento con parámetro src (para tu conversión "Lead - WhatsApp Click")
     btn.addEventListener('click', function(){
