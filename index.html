@@ -91,40 +91,40 @@
 
   <!-- Routing por anuncio (1..8) + Lead con eventID -->
   <script>
-  (function(){
-    const url = new URL(location.href);
-    const q = url.searchParams;
-    let raw = q.get('src') || q.get('scr') || '';
-    if (!raw && url.hash) {
-      const h = new URLSearchParams(url.hash.replace(/^#\?*/, ''));
-      raw = h.get('src') || h.get('scr') || '';
-    }
-    const n = (String(raw).match(/\d+/)||[])[0];
-    const SRC = (n && +n>=1 && +n<=8) ? String(+n) : '1';
+(function(){
+  // Detectar anuncio 1..8 desde ?src o #src
+  const url = new URL(location.href);
+  const q = url.searchParams;
+  let raw = q.get('src') || q.get('scr') || '';
+  if (!raw && url.hash){
+    const h = new URLSearchParams(url.hash.replace(/^#\?*/, ''));
+    raw = h.get('src') || h.get('scr') || '';
+  }
+  const n   = (String(raw).match(/\d+/)||[])[0];
+  const SRC = (n && +n>=1 && +n<=8) ? String(+n) : '1';
 
-    const LINKS = {
-      '1': 'https://wa.link/2asbte',
-      '2': 'https://wa.link/m082kf',
-      '3': 'https://wa.link/h1vryi',
-      '4': 'https://wa.link/peu74c',
-      '5': 'https://wa.link/yn3j5d',
-      '6': 'https://wa.link/osmiau',
-      '7': 'https://wa.link/1617b3',
-      '8': 'https://wa.link/autvfs'
-    };
+  // 8 wa.link (uno por anuncio)
+  const LINKS = {
+    '1': 'https://wa.link/2asbte',
+    '2': 'https://wa.link/m082kf',
+    '3': 'https://wa.link/h1vryi',
+    '4': 'https://wa.link/peu74c',
+    '5': 'https://wa.link/yn3j5d',
+    '6': 'https://wa.link/osmiau',
+    '7': 'https://wa.link/1617b3',
+    '8': 'https://wa.link/autvfs'
+  };
 
-    const btn = document.getElementById('wa-btn');
-    if (!btn) return;
-    btn.href = LINKS[SRC] || LINKS['1'];
+  // Setear botón y enviar SOLO Lead (Cliente potencial) con src
+  const btn = document.getElementById('wa-btn');
+  if (!btn) return;
+  btn.href = LINKS[SRC] || LINKS['1'];
 
-    btn.addEventListener('click', () => {
-      // eventID para deduplicar si usás CAPI (en el servidor enviá el mismo ID)
-      const eventId = 'lead_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
-      if (window.fbq) {
-        fbq('track','Lead', { src: SRC, content_name: 'WhatsApp Click' }, { eventID: eventId });
-      }
-    });
-  })();
-  </script>
+  btn.addEventListener('click', () => {
+    if (window.fbq) fbq('track','Lead', { src: SRC, content_name: 'WhatsApp Click' });
+  });
+})();
+</script>
 </body>
 </html>
+
