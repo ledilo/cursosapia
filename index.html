@@ -5,59 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WhatsApp</title>
   <style>
-  :root{--wa:#25D366;--wa-dark:#128C7E;--footer:#0f1a21;--text:#111}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
-  header{padding:24px 16px 8px;text-align:center}
-  header .wa{display:inline-flex;align-items:center;gap:8px;color:var(--wa);font-weight:700;font-size:24px}
-  header .wa img.icon{width:28px;height:28px}
-  .brand{display:flex;justify-content:center}
-  .brand img{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:0 6px 20px rgba(0,0,0,.12);margin:12px auto 24px}
-  .cta-panel{width:90%;max-width:1200px;margin:0 auto;background:#e5e5e5;border-radius:24px;padding:28px 20px;text-align:center}
-  .cta-text{font-size:18px;margin:6px 0 18px;color:#333}
-  .boton{display:inline-block;background:var(--wa-dark);color:#fff;text-decoration:none;padding:12px 28px;border-radius:999px;font-weight:700}
-  .boton:hover{filter:brightness(.95)}
-  .bcd{text-align:center;padding:24px 16px 0}
-  .rtp{margin:12px 0 8px}
-  .eso a{color:#1a73e8;text-decoration:none}
-  footer{margin-top:140px;background:var(--footer);color:#fff;text-align:center;padding:40px 16px}
-  footer h2{margin:0 0 8px;font-size:2rem}
-</style>
+    :root{--wa:#25D366;--wa-dark:#128C7E;--footer:#0f1a21;--text:#111}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
 
-  <!-- Meta Pixel Code (tu pixel) -->
+    /* TOP */
+    header{padding:20px 16px 8px;text-align:center}
+    .wa{display:inline-flex;align-items:center;gap:8px;color:var(--wa);font-weight:700;font-size:24px}
+    .wa .icon{width:28px;height:28px}
+    .logo{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:0 6px 20px rgba(0,0,0,.12);margin:12px auto 24px;display:block}
+
+    /* PANEL CTA */
+    .cta-panel{width:90%;max-width:1200px;margin:0 auto;background:#e5e5e5;border-radius:24px;padding:28px 20px;text-align:center}
+    .cta-text{font-size:18px;margin:6px 0 18px;color:#333}
+
+    /* BOTÓN con zoom */
+    .boton{
+      display:inline-block;background:var(--wa-dark);color:#fff;text-decoration:none;
+      padding:14px 30px;border-radius:999px;font-weight:700;letter-spacing:.2px;
+      box-shadow:0 8px 20px rgba(0,0,0,.14);
+      transition:transform .16s ease, box-shadow .2s ease, filter .2s ease;
+      will-change:transform; cursor:pointer;
+    }
+    .boton:hover{transform:translateY(-1px) scale(1.04);box-shadow:0 14px 28px rgba(0,0,0,.16);filter:saturate(1.05)}
+    .boton:active{transform:translateY(0) scale(.96);box-shadow:0 8px 20px rgba(0,0,0,.14)}
+
+    /* TEXTO INFERIOR */
+    .bcd{text-align:center;padding:24px 16px 0}
+    .rtp{margin:12px 0 8px}
+    .eso a{color:#1a73e8;text-decoration:none}
+    footer{margin-top:140px;background:var(--footer);color:#fff;text-align:center;padding:40px 16px}
+    footer h2{margin:0 0 8px;font-size:2rem}
+  </style>
+
+  <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '973322538310425');
-    fbq('track', 'PageView');
+    fbq('init','973322538310425');
+    fbq('track','PageView');
   </script>
-  <noscript>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1" />
-  </noscript>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=973322538310425&ev=PageView&noscript=1"/></noscript>
   <!-- End Meta Pixel Code -->
 </head>
 
 <body>
   <header>
-  <div class="wa">
-    <img class="icon" src="https://static.whatsapp.net/rsrc.php/yZ/r/JvsnINJ2CZv.svg" alt="WhatsApp" />
-    <span>WhatsApp</span>
-  </div>
-  <div class="brand">
-    <!-- Subí tu logo a /logo.png en Vercel -->
-    <img src="logo.png" alt="Logo" />
-  </div>
-</header>
-
-  <!-- (Se quitó la imagen externa del otro sitio) -->
+    <div class="wa">
+      <img class="icon" src="https://static.whatsapp.net/rsrc.php/yZ/r/JvsnINJ2CZv.svg" alt="">
+      <span>WhatsApp</span>
+    </div>
+    <!-- Subí tu archivo como /logo.png a Vercel -->
+    <img class="logo" src="logo.png" alt="Logo">
+  </header>
 
   <div class="cta-panel">
-  <div class="cta-text">Envía el siguiente mensaje a través de WhatsApp</div>
-  <a class="boton" id="wa-btn" href="https://wa.link/r7w4el" target="_blank" rel="noopener">Ir al chat</a>
-</div>
+    <div class="cta-text">Envía el siguiente mensaje a través de WhatsApp</div>
+    <a class="boton" id="wa-btn" href="https://wa.link/r7w4el" target="_blank" rel="noopener">Ir al chat</a>
+  </div>
 
   <div class="bcd">
     <p class="rtp">¡Hola! Quiero crear un usuario, mi nombre es:</p>
@@ -69,23 +78,19 @@
 
   <footer>
     <h2 class="tzt">WhatsApp</h2>
-<p>Envíanos un mensaje por WhatsApp</p>
-</footer>
+    <p>Envíanos un mensaje por WhatsApp</p>
+  </footer>
 
   <script>
-    // Lee ?src=1..5 del URL para identificar el anuncio en tus métricas
-    // Ejemplo: https://tudominio.com?src=1 (configuralo en Parámetros de URL del anuncio)
+    // Lee ?src=1..5 para identificar el anuncio
     const SRC = new URLSearchParams(location.search).get('src') || '';
-
-    // Mide el click al botón de WhatsApp con el parámetro src
     const btn = document.getElementById('wa-btn');
-    btn.addEventListener('click', function () {
-      if (typeof fbq === 'function') {
-        // Evento personalizado para tu conversión "Lead - WhatsApp Click"
-        fbq('trackCustom', 'WhatsAppClick', { src: String(SRC) });
 
-        // Opcional: también como evento estándar "Lead" por si querés usarlo
-        fbq('track', 'Lead', { content_name: 'WhatsApp Click', src: String(SRC) });
+    // Evento con parámetro src (para tu conversión "Lead - WhatsApp Click")
+    btn.addEventListener('click', function(){
+      if (typeof fbq === 'function') {
+        fbq('trackCustom','WhatsAppClick',{ src: String(SRC) });
+        fbq('track','Lead',{ content_name:'WhatsApp Click', src: String(SRC) });
       }
     });
   </script>
