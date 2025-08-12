@@ -96,51 +96,71 @@ header{padding:18px 16px 6px;text-align:center}
     <p>Envíanos un mensaje por WhatsApp</p>
   </footer>
   <script>
-document.addEventListener('DOMContentLoaded', function () {
-  function getSrc() {
+(function(){
+  function findSrc(){
+    const found = [];
+
+    // URL actual: query
     const url = new URL(window.location.href);
-
-    // 1) Buscar en la query
     const q = url.searchParams;
-    let raw = q.get('src') || q.get('scr') || q.get('Src') || q.get('SRC') || q.get('utm_content') || '';
+    found.push(q.get('src'), q.get('scr'), q.get('Src'), q.get('SRC'), q.get('utm_content'));
 
-    // 2) Si no vino, buscar en el hash (#src=3, #?src=3, etc.)
-    if (!raw && url.hash) {
-      const hash = url.hash.replace(/^#\?*/, ''); // quita # o #?
+    // URL actual: hash (#src=3 o #?src=3)
+    if (url.hash){
+      const hash = url.hash.replace(/^#\?*/, '');
       const h = new URLSearchParams(hash);
-      raw = h.get('src') || h.get('scr') || '';
+      found.push(h.get('src'), h.get('scr'));
     }
 
-    // 3) Extraer número
-    const num = (String(raw).match(/\d+/) || [])[0];
-    return num || '1';
+    // Referrer (Facebook puede poner tu URL adentro de ?u=)
+    try {
+      if (document.referrer){
+        const ref = new URL(document.referrer);
+        // directo en referrer
+        found.push(ref.searchParams.get('src'), ref.searchParams.get('scr'));
+        // dentro de u= o url=
+        const innerStr = ref.searchParams.get('u') || ref.searchParams.get('url');
+        if (innerStr){
+          const inner = new URL(decodeURIComponent(innerStr));
+          found.push(inner.searchParams.get('src'), inner.searchParams.get('scr'));
+        }
+      }
+    } catch(e){}
+
+    // De lo que encontremos, devolvemos el primer número
+    for (const val of found){
+      if (val && /\d/.test(val)) {
+        const num = (String(val).match(/\d+/)||[])[0];
+        if (num) return num;
+      }
+    }
+    return '1'; // fallback
   }
 
-  const SRC = getSrc();
+  const SRC = findSrc();
   const btn = document.getElementById('wa-btn');
   if (!btn) return;
 
   const text = `Hola! Vengo del anuncio ${SRC}. Quiero crear un usuario, mi nombre es:`;
-
-  // Setea tu shortlink SIN texto predefinido
   btn.href = `https://wa.link/9goij7?text=${encodeURIComponent(text)}`;
 
-  // Fallback por si el navegador ignora el href dinámico
-  btn.addEventListener('click', function (e) {
-    // Si querés forzar el open, descomentá estas 3 líneas:
-    // e.preventDefault();
-    // window.open(`https://wa.link/9goij7?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-    // return;
-
+  btn.addEventListener('click', () => {
     if (window.fbq) {
       fbq('trackCustom','WhatsAppClick',{ src: String(SRC) });
       fbq('track','Lead',{ content_name:'WhatsApp Click', src: String(SRC) });
     }
   });
-});
+
+  // DEBUG visual (borrá estas 3 líneas cuando termines)
+  const dbg = document.createElement('div');
+  dbg.textContent = 'Anuncio detectado: ' + SRC;
+  dbg.style.cssText = 'margin-top:8px;font-size:12px;color:#666';
+  document.querySelector('.cta-panel')?.appendChild(dbg);
+})();
 </script>
 </body>
 </html>
+
 
 
 
