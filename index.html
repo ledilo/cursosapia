@@ -99,31 +99,35 @@
       const data = normalizeAttr(merged);
       saveAttr(data);
 
-      if (window.fbq) {
-        fbq('trackCustom', 'LP_View', data);
-      }
+     if (window.fbq) {
+  fbq('trackCustom', 'LP_View', data);
+}
 
-      const btn = document.querySelector('.btn-wsp');
-      if (btn) {
-        btn.addEventListener('click', function(e){
-          e.preventDefault();
+const btn = document.querySelector('.btn-wsp');
+if (btn) {
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
 
-          const number = b64(WA_B64);
-          const baseMsg = 'Hola! Vengo por la promo.';
-          const tag = buildTag(data);
-          const finalMsg = encodeURIComponent(`${baseMsg} ${tag}`);
-          const waUrl = `https://wa.me/${number}?text=${finalMsg}`;
+    const number = b64(WA_B64);
+    const baseMsg = 'Hola! Vengo por la promo.';
+    const tag = buildTag(data);
+    const finalMsg = encodeURIComponent(`${baseMsg} ${tag}`);
+    const waUrl = `https://wa.me/${number}?text=${finalMsg}`;
 
-          if (window.fbq) {
-            // Evento estándar (aparece siempre para conversiones/optimización)
-            fbq('track', 'Lead', data);
+    if (window.fbq) {
+      // Evento estándar (para conversiones/optimización)
+      fbq('track', 'Lead', data);
 
-            // Tu evento personalizado (para análisis y breakdown por UTM)
-            fbq('trackCustom', 'WA_Click', data);
+      // Evento personalizado (análisis y breakdown UTM)
+      fbq('trackCustom', 'WA_Click', data);
 
-            // Mantengo tu Subscribe si lo querés seguir viendo
-            fbq('track', 'Subscribe', { value: 0.00, currency: 'USD' });
-          }
+      // Tu evento estándar anterior
+      fbq('track', 'Subscribe', { value: 0.00, currency: 'USD' });
+    }
+
+    window.open(waUrl, '_blank');
+  });
+}
 
           window.open(waUrl, '_blank');
         });
@@ -144,4 +148,5 @@
   </div>
 </body>
 </html>
+
 
