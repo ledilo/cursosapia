@@ -101,21 +101,15 @@ header{padding:18px 16px 6px;text-align:center}
   const qs  = new URLSearchParams(location.search);
   const SRC = qs.get('src') || qs.get('scr') || '1';
 
+  // Mensaje dinámico
+  const text = `Hola! Vengo del anuncio ${SRC}. Quiero crear un usuario, mi nombre es:`;
+
+  // Setea el href usando tu shortlink sin texto
   const btn = document.getElementById('wa-btn');
+  btn.href  = `https://wa.link/9goij7?text=${encodeURIComponent(text)}`;
 
-  btn.addEventListener('click', (e) => {
-    e.preventDefault(); // no uses el href real, lo controlamos nosotros
-
-    // Texto dinámico
-    const text = `Hola! Vengo del anuncio ${SRC}. Quiero crear un usuario, mi nombre es:`;
-
-    // Deep link oficial (tu número en E.164 sin +)
-    const targetUrl = `https://wa.me/5492616729823?text=${encodeURIComponent(text)}`;
-
-    // Abrir WhatsApp en nueva pestaña/ventana
-    window.open(targetUrl, '_blank', 'noopener');
-
-    // Pixel con parámetro src
+  // Pixel con parámetro src
+  btn.addEventListener('click', () => {
     if (window.fbq) {
       fbq('trackCustom','WhatsAppClick',{ src: String(SRC) });
       fbq('track','Lead',{ content_name:'WhatsApp Click', src: String(SRC) });
@@ -124,6 +118,7 @@ header{padding:18px 16px 6px;text-align:center}
 </script>
 </body>
 </html>
+
 
 
 
